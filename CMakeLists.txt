@@ -1,19 +1,34 @@
 cmake_minimum_required(VERSION 2.6)
 project(GeneticDecision)
 
-set(SOURCES
+set(LIBRARIES_SRC
     src/CoordR2.cpp
     src/Grafo.cpp
-    src/Package.cpp
-    src/main.cpp
+)
+
+set(LIBRARIES_HEADERS
+    include/CoordR2.h
+    include/Grafo.h
+    
+)
+
+set(SOURCES
+    src/main.cpp    
+    src/StatusRobo.cpp
+    src/Pacote.cpp
+    src/SequenciaPacotes.cpp
+    src/SequenciaAcao.cpp
+    src/PlanejamentoRobo.cpp
 )
 
 set(HEADERS
-    include/CoordR2.h
-    include/Grafo.h
-    include/Package.h
+    include/StatusRobo.h
+    include/Pacote.h
+    include/SequenciaPacotes.h
+    include/SequenciaAcao.h
+    include/PlanejamentoRobo.h
+    
 )
 
 include_directories("include/")
-
-add_executable(Executable ${SOURCES} ${HEADERS})
+add_executable(Executable ${SOURCES} ${LIBRARIES_SRC} ${HEADERS} ${LIBRARIES_HEADERS})

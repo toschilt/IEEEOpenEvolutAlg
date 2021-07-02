@@ -1,0 +1,48 @@
+main:
+    - Instanciar os pacotes de acordo com o cenário
+    - Instanciar o StatusRobo
+    - Instanciar o PlanejamentoRobo passando o StatusRobo como parâmetro
+
+StatusRobo.h
+    - int limiteArmazenamento
+    - CoordR2 posInicial
+    - Pacote[] pacotesDisponiveis
+
+Pacote.h
+    - int cor
+    - CoordR2 posicaoPacote
+
+SequenciaPacotes.h                                                      (indivíduo)
+    - int fitness
+    - Pacote[]
+
+    - SequenciaPacotes(Pacote[] pacotesDisponiveis)
+    - calculaCustoDeslocamento(CoordR2)                                 (calcula o custo para realizar o deslocamento para uma determinada acao)
+    - calculaCustoColeta()                                              (calula o custo para realizar a coleta de um pacote)
+    - calculaCustoEntrega()                                             (calcula o custo para realizar a entrega de um pacote)
+    - calculaFitness(char[])                                            (recebe as ações como argumento)
+
+
+SequenciaAcao.h                                                         (populacão de SequenciaPacotes e indivíduo do PlanejamentoRobo)
+    - int indiceMelhorSequenciaPacotes                                  (índice com o melhor conjunto de pacotes)
+    - char[]                                                            (ações)
+    - SequenciaPacotes[]
+    - CoordR2 posicaoAtual
+    
+    - SequenciaAcao(StatusRobo)                                         (chama inicializaPacotes e atualiza posicaoAtual)
+    - inicializaPacotes(Pacote[] pacotesDisponiveis)                    (inicializa sequências randômicas de pacotes)
+    - calculaFitness()                                                  (já atualiza indiceMelhorSequenciaPacotes)
+    - criaNovaPopulacao()                                               (chama crossover() e mutacao() e atualiza SequenciaPacotes)
+    - crossover()                                                       (age sobre o SequenciaPacotes[])
+    - mutacao()                                                         (age sobre o SequenciaPacotes[])
+
+PlanejamentoRobo.h
+    - int indiceMelhorCombinacao                                        (índice com a melhor combinação de ações/pacotes)
+    - SequenciaAcao[]                                                   (populações)
+
+    - PlanejamentoRobo(StatusRobo)
+    - inicializaSequenciaAcao(StatusRobo)                               (inicializa sequências válidas de ações)
+    - inicializaPlanejamento()                                          (encapsula toda inicializacao)
+    - calculaFitness()                                                  (já atualiza indiceMelhorCombinacao)
+    - evoluiAteScore(int score)                                         (chama o criaNovaPopulacao() para cada SequenciaAcao até obter o score desejado)
+    - evoluiNGeracoes(int n)                                            (chama o criaNovaPopulacao() para cada SequenciaAcao até passar todas as gerações)
