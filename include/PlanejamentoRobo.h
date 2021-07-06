@@ -1,4 +1,4 @@
-#ifdef PLANEJAMENTOROBO_H
+#ifndef PLANEJAMENTOROBO_H
 #define PLANEJAMENTOROBO_H
 
 class PlanejamentoRobo {
