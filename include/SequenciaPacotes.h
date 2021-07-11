@@ -1,7 +1,8 @@
 #ifndef SEQUENCIAPACOTES_H
 #define SEQUENCIAPACOTES_H
 
-class SequenciaPacotes {
+class SequenciaPacotes
+{
     private:
 
     public:

@@ -1,7 +1,8 @@
 #ifndef PLANEJAMENTOROBO_H
 #define PLANEJAMENTOROBO_H
 
-class PlanejamentoRobo {
+class PlanejamentoRobo
+{
     private:
 
     public:

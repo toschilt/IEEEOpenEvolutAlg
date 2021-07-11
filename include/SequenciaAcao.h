@@ -24,7 +24,8 @@ SequenciaAcao.h                                                         (populac
 */
 
 
-class SequenciaAcao {
+class SequenciaAcao 
+{
     private:
 
     public:

@@ -5,53 +5,114 @@
 #include <vector>
 #include "CoordR2.h"
 #include "Grafo.h"
+#include "Pacote.h"
 
 using namespace std;
 
-//LUCAS TOSCHI LEMBRA DE CRIAR O ENUM P/ CORES OBRIGADO
+enum kcores_pacotes 
+{
+    COR_VERDE,
+    COR_AZUL,
+    COR_AMARELO,
+    COR_VERMELHO,
+    COR_PRETO,
+    COR_BRANCO
+};
 
-class Pacote {
+class Pacote
+{
     private:
 
     public:
         /*
-         * PADRÃO DE CORES
-         * 0 -> verde
-         * 1 -> azul
-         * 2 -> amarelo
-         * 3 -> vermelho
-         * 4 -> preto
-         * 5 -> branco
+        * ============
+        * ATRIBUTOS
+        * ============
+        */
+
+        /*
+         * Define a cor do pacote em questão.
+         * O código de cores está definido em kcores_pacotes.
         */
         int cor;
 
+        /*
+         * Define o número do pacote em questão.
+        */
         int numero;
 
         /*
-         * Posição do bloco deicidida pelos juízes
+         * Define a posição do bloco em questão.
+         * É definido pelos juízes no início de cada rodada.
         */
-        CoordR2 posicaoAtual;
+        CoordR2 *posicaoAtual;
 
         /*
-         * Posições possíveis para captura do pacote
+         * Define as possíveis posições de captura
+         * do pacote em questão.
         */
-        vector<CoordR2> posicoesCaptura;
+        CoordR2 *posicoesCaptura;
 
         /*
-         * Posições possíveis para entrega do pacote
+         * Define as possíveis posições de entrega
+         * do pacote em questão.
         */
-        vector<CoordR2> posicoesEntrega;
+        CoordR2 *posicoesEntrega;
 
+        /*
+        * ==============
+        * CONSTRUTORES
+        * ==============
+        */
+
+        /*
+         * Construtor padrão. É definido:
+         * cor = -1,
+         * numero = -1,
+         * posicaoAtual = nullptr,
+         * posicoesCaptura = nullptr,
+         * posicoesEntrega = nullptr
+        */
         Pacote();
-        Pacote(int color, int number);
-        Pacote(int color, Grafo graph, CoordR2 currentPosition);
-        Pacote(int color, int number, Grafo graph, CoordR2 currentPosition);
 
-        //MÉTODOS SET
+        /*
+         * Construtor. É definido:
+         * posicaoAtual = nullptr,
+         * posicoesCaptura = nullptr,
+         * posicoesEntrega = nullptr.
+         * Os demais parâmetros são definidos arbitrariamente.
+        */
+        Pacote(int color, int number);
+
+        /*
+         * Construtor. 
+         * As possíveis posições de captura e coleta são calculadas
+         * a partir do grafo fornecido.
+         * Cor e posicaoAtual são definidas arbitrariamente.
+        */
+        Pacote(Grafo grafoCenario, int color, CoordR2 *posicaoAtual);
+
+        /*
+         * Construtor. 
+         * As possíveis posições de captura e coleta são calculadas
+         * a partir do grafo fornecido.
+         * Cor, número e posicaoAtual são definidas arbitrariamente.
+        */
+        Pacote(int color, int number, Grafo graph, CoordR2 *posicaoAtual);
+
+        /*
+        * ==============
+        * MÉTODOS SET
+        * ==============
+        */
         void setnumero(int number);
         void setposicaoAtual(Grafo graph, CoordR2 currentPosition);
 
-        //MÉTODOS PRINT
+        /*
+        * =========================
+        * MÉTODOS PARA IMPRESSÃO
+        * =========================
+        */
         void printposicoesCaptura();
         void printposicoesEntrega();
 };

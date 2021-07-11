@@ -1,23 +1,27 @@
-#include <iostream>
 #include "Pacote.h"
-#include "Grafo.h"
-
 
 using namespace std;
 
-//MÉTODOS CONSTRUTORES
-Pacote::Pacote() {
-    this->cor = -1;
-    this->numero = -1;
+Pacote::Pacote() 
+{
+    cor = -1;
+    numero = -1;
+    posicaoAtual = nullptr;
+    posicoesCaptura = nullptr;
+    posicoesEntrega = nullptr;
 }
 
-Pacote::Pacote(int cor, int numero) {
+Pacote::Pacote(int cor, int numero)
+{
     this->cor = cor;
     this->numero = numero;
-    this->posicaoAtual = CoordR2(-1, -1);
+    posicaoAtual = nullptr;
+    posicoesCaptura = nullptr;
+    posicoesEntrega = nullptr;
 }
 
-Pacote::Pacote(int cor, Grafo graph, CoordR2 posicaoAtual) {
+Pacote::Pacote(Grafo grafoCenario, int cor, CoordR2 *posicaoAtual)
+{
     this->cor = cor;
     this->numero = -1;
     this->posicaoAtual = posicaoAtual;
