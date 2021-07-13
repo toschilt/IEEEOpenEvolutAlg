@@ -1,13 +1,24 @@
 #ifndef SEQUENCIAACAO_H
 #define SEQUENCIAACAO_H
 
+using namespace std;
+
 #include "SequenciaPacotes.h"
 #include "StatusRobo.h"
 #include "Pacote.h"
 #include <cmath>
 
+#include <iostream>
+#include <algorithm>
+#include <array>
+#include <random>
+#include <chrono>
+
 #define QUANTIDADE_ACOES                20
 #define TAMANHO_VETOR_SEQUENCIAPACOTES  10
+
+#define TAXA_MUTACAO                    10
+#define TAXA_CROSSOVER                  1
 
 /*
 SequenciaAcao.h                                                         (populacão de SequenciaPacotes e indivíduo do PlanejamentoRobo)
@@ -28,38 +39,47 @@ SequenciaAcao.h                                                         (populac
 class SequenciaAcao {
     private:
 
+    bool coinflip(float probabilidadeSucesso);
+
+
     public:
     
     /*
-    * Variável que armazena o índice da melhor sequencia de pacotes
+     * Variável que armazena o índice da melhor sequencia de pacotes
     */
-    int indiceMelhorSequenciaPacotes;
+    int indiceMelhorFitness;
     
     /*
-    * Melhor fitness
+     * Melhor fitness
     */
     retornoCalcFitness melhorFitness;
 
     /*
-    * Vetor com sequências de pacotes para evoluir
+     * Vetor com sequências de pacotes para evoluir
     */
-    SequenciaPacotes sequenciaPacotes[TAMANHO_VETOR_SEQUENCIAPACOTES];
+    array<SequenciaPacotes, TAMANHO_VETOR_SEQUENCIAPACOTES> sequenciaPacotes;
 
 
     /*
-    * Vetor com os fitness individuais para cada sequência
-    * utilizado para definição de pesos no crossover
+     * Vetor com os fitness individuais para cada sequência
+     * utilizado para definição de pesos no crossover
     */
     retornoCalcFitness fitness[TAMANHO_VETOR_SEQUENCIAPACOTES];
 
     /*
-    * Vetor que armazena a sequência de ações específica
+     * Vetor que armazena a sequência de ações específica
     */
     int *sequenciaAcoes;
     
-
+    /*
+     * Construtor da classe
+    */
     SequenciaAcao(StatusRobo *robo);
-    void inicializaPacotes(Pacote* pacotesDisponiveis);
+
+    /*
+     * Inicializa sequências aleatóirias de pacotes
+    */
+    void inicializaPacotes(array<Pacote*, QUANTIDADE_PACOTES> pacotesDisponiveis);
     void calculaFitness();
     void atualizaPopulacao();
     void crossover();

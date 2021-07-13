@@ -3,6 +3,7 @@
 
 #define QUANTIDADE_PACOTES  32
 
+#include "Pacote.h"
 
 
 typedef float retornoCalcFitness;
@@ -12,6 +13,7 @@ class SequenciaPacotes {
 
     public:
 
+    array<Pacote*, QUANTIDADE_PACOTES> sequenciaPacotes;
 
     retornoCalcFitness calculaFitness(int *sequenciaAcoes);
     

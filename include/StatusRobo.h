@@ -2,13 +2,14 @@
 #define STATUSROBO_H
 
 #include "Pacote.h"
+#include "SequenciaPacotes.h"
 
 class StatusRobo {
     private:
     
     public:
 
-    Pacote *pacotesDisponiveis;
+    array<Pacote*, QUANTIDADE_PACOTES> pacotesDisponiveis;
     
 };
 
