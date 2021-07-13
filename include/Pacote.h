@@ -10,6 +10,15 @@ using namespace std;
 
 //LUCAS TOSCHI LEMBRA DE CRIAR O ENUM P/ CORES OBRIGADO
 
+enum cores {
+    verde,
+    azul,
+    amarelo,
+    vermelho,
+    preto,
+    branco
+};
+
 class Pacote {
     private:
 
@@ -23,7 +32,7 @@ class Pacote {
          * 4 -> preto
          * 5 -> branco
         */
-        int cor;
+        cores cor;
 
         int numero;
 
