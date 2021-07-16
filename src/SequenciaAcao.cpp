@@ -9,8 +9,6 @@ SequenciaAcao::SequenciaAcao(StatusRobo *robo) {
 
 
 void SequenciaAcao::inicializaPacotes(array<Pacote*, QUANTIDADE_PACOTES> pacotesDisponiveis) {
-    
-    unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
 
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++) {
 
@@ -53,7 +51,10 @@ void SequenciaAcao::mutacao() {
         if(i == this->indiceMelhorFitness) { continue; }
 
         for(int j = 0; j < QUANTIDADE_PACOTES; j++) {
-            if(coinflip(TAXA_MUTACAO * (1 - this->fitness[j]))) {
+
+            float taxaMutacao = TAXA_MUTACAO_SEQUENCIAPACOTES * (1 - this->fitness[j]);
+
+            if(coinflip(taxaMutacao)) {
                 int indiceTroca = rand() % QUANTIDADE_PACOTES;
                 
                 Pacote *pacote1 = this->sequenciaPacotes.at(i).sequenciaPacotes[indiceTroca];

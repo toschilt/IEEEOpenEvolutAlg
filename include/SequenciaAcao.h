@@ -6,19 +6,14 @@ using namespace std;
 #include "SequenciaPacotes.h"
 #include "StatusRobo.h"
 #include "Pacote.h"
-#include <cmath>
+#include "Constantes.h"
 
+#include <cmath>
 #include <iostream>
 #include <algorithm>
 #include <array>
 #include <random>
-#include <chrono>
 
-#define QUANTIDADE_ACOES                20
-#define TAMANHO_VETOR_SEQUENCIAPACOTES  10
-
-#define TAXA_MUTACAO                    10
-#define TAXA_CROSSOVER                  1
 
 /*
 SequenciaAcao.h                                                         (populacão de SequenciaPacotes e indivíduo do PlanejamentoRobo)
