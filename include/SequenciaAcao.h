@@ -37,7 +37,7 @@ class SequenciaAcao {
     /*
      * Vetor com sequências de pacotes para evoluir
     */
-    vector<SequenciaPacotes*> *sequenciasPacotes;
+    vector<SequenciaPacotes> sequenciasPacotes;
 
 
     /*

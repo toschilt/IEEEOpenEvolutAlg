@@ -3,7 +3,7 @@
 
 SequenciaAcao::SequenciaAcao(StatusRobo *robo) 
 {
-    sequenciasPacotes = new vector<SequenciaPacotes*>;
+    // sequenciasPacotes = new vector<SequenciaPacotes*>;
     this->inicializaPacotes(robo->pacotesDisponiveis);
     this->indiceMelhorFitness = -1;
     this->melhorFitness = -INFINITY;
@@ -17,7 +17,7 @@ void SequenciaAcao::inicializaPacotes(vector<Pacote*> *pacotesDisponiveis)
         vector<Pacote*> *novaSequencia = pacotesDisponiveis;
 
         shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(semente));
-        sequenciasPacotes->at(i) = new SequenciaPacotes(novaSequencia);
+        this->sequenciasPacotes.at(i) = novaSequencia;
     }
 }
 
@@ -27,7 +27,7 @@ void SequenciaAcao::calculaFitness()
     //Passa por toda a sequência, calcula os fitness individuais, e salva o melhor
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
-        this->fitness[i] = sequenciasPacotes[i]->calculaFitness(this->sequenciaAcoes);
+        this->fitness[i] = sequenciasPacotes.at(i).calculaFitness(this->sequenciaAcoes);
         if(this->fitness[i] > this->melhorFitness)
         {
             this->melhorFitness = this->fitness[i];
@@ -63,14 +63,14 @@ void SequenciaAcao::mutacao()
         for(int j = 0; j < QUANTIDADE_PACOTES; j++) 
         {
 
-            float taxaMutacao = TAXA_MUTACAO_SEQUENCIAPACOTES * (1 - this->fitness[j]);
+            float taxaMutacaoFinal = TAXA_MUTACAO_SEQUENCIAPACOTES * (1 - this->fitness[j]);
 
-            if(coinflip(taxaMutacao)) 
+            if(coinflip(taxaMutacaoFinal)) 
             {
                 int indiceTroca = rand() % QUANTIDADE_PACOTES;
                 
-                Pacote *pacote1 = this->sequenciasPacotes.at(i).sequenciaPacotes[indiceTroca];
-                Pacote *pacote2 = this->sequenciasPacotes.at(i).sequenciaPacotes[j];
+                Pacote *pacote1 = this->sequenciasPacotes.at(i).sequenciaPacotes->at(indiceTroca);
+                Pacote *pacote2 = this->sequenciasPacotes.at(i).sequenciaPacotes->at(j);
                 Pacote *aux = pacote1;
                 pacote1 = pacote2;
                 pacote2 = aux;
