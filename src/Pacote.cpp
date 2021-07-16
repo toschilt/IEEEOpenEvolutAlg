@@ -7,23 +7,29 @@ using namespace std;
 
 //MÉTODOS CONSTRUTORES
 Pacote::Pacote() {
-    this->cor = -1;
+    this->cor = COR_INDEF;
     this->numero = -1;
+    this->posicaoAtual = nullptr;
+    this->posicoesCaptura = nullptr;
+    this->posicoesEntrega = nullptr;
 }
 
 Pacote::Pacote(int cor, int numero) {
     this->cor = cor;
     this->numero = numero;
-    this->posicaoAtual = CoordR2(-1, -1);
+    this->posicaoAtual = nullptr;
+    this->posicoesCaptura = nullptr;
+    this->posicoesEntrega = nullptr;
 }
 
-Pacote::Pacote(int cor, Grafo graph, CoordR2 posicaoAtual) {
+Pacote::Pacote(Grafo grafoCenario, int cor, int numero, CoordR2 *posicaoAtual)
+{
     this->cor = cor;
-    this->numero = -1;
+    this->numero = numero;
     this->posicaoAtual = posicaoAtual;
 
-    int x = posicaoAtual.x;
-    int y = posicaoAtual.y;
+    int x = posicaoAtual->x;
+    int y = posicaoAtual->y;
 
     /*
     Checa as possíveis posições de coleta para
@@ -34,17 +40,17 @@ Pacote::Pacote(int cor, Grafo graph, CoordR2 posicaoAtual) {
     CoordR2 left = CoordR2(x - 1, y);
     CoordR2 right = CoordR2(x + 1, y);
 
-    if(!graph.Get_Vizinhos(above).empty())
-        this->posicoesCaptura.push_back(above);
+    if(!grafoCenario.Get_Vizinhos(above).empty())
+        this->posicoesCaptura->push_back(above);
 
-    if(!graph.Get_Vizinhos(bellow).empty())
-        this->posicoesCaptura.push_back(bellow);
+    if(!grafoCenario.Get_Vizinhos(bellow).empty())
+        this->posicoesCaptura->push_back(bellow);
 
-    if(!graph.Get_Vizinhos(left).empty())
-        this->posicoesCaptura.push_back(left);
+    if(!grafoCenario.Get_Vizinhos(left).empty())
+        this->posicoesCaptura->push_back(left);
 
-    if(!graph.Get_Vizinhos(right).empty())
-        this->posicoesCaptura.push_back(right);
+    if(!grafoCenario.Get_Vizinhos(right).empty())
+        this->posicoesCaptura->push_back(right);
 
     switch(cor) {
         case 0:

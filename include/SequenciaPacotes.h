@@ -1,7 +1,7 @@
 #ifndef SEQUENCIAPACOTES_H
 #define SEQUENCIAPACOTES_H
 
-#define QUANTIDADE_PACOTES  32
+#define QUANTIDADE_PACOTES 32
 
 #include "Pacote.h"
 
