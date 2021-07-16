@@ -7,16 +7,8 @@
 #include "Grafo.h"
 #include "Pacote.h"
 
-enum kcores_pacotes 
-{
-    COR_INDEF = -1,
-    COR_VERDE,
-    COR_AZUL,
-    COR_AMARELO,
-    COR_VERMELHO,
-    COR_PRETO,
-    COR_BRANCO
-};
+using namespace std;
+
 class Pacote
 {
     private:
@@ -141,7 +133,7 @@ class Pacote
         * MÉTODO PARA IMPRESSÃO
         * =======================
         */
-       
+
         friend std::ostream & operator<<(std::ostream& output, Pacote const& pacote);
 };
 

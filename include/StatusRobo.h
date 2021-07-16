@@ -3,20 +3,7 @@
 
 #include "CoordR2.h"
 #include "Pacote.h"
-
-/* 
- * Definição das constantes que definem a orientação do robô.
- * ORIENTACAO_PRATILEIRA - garra voltada para as pratileiras
- * ORIENTACAO_ENTREGA_COLORIDOS - garra voltada para as regiões coloridas
- * ORIENTACAO_DIREITA - garra voltada para a direita, olhando para as pratileiras
- * ORIENTACAO_ESQUERDA - garra voltada para a esquerda, olhando para as pratileiras
-*/
-enum korientacaoRobo {
-    ORIENTACAO_PRATILEIRA,
-    ORIENTACAO_ENTREGA_COLORIDOS,
-    ORIENTACAO_DIREITA,
-    ORIENTACAO_ESQUERDA
-};
+#include "Constantes.h"
 
 class StatusRobo
 {
@@ -54,7 +41,7 @@ class StatusRobo
          * É definido pelos jurados a cada rodada e obtido
          * através dos algoritmos de Visão Computacional.
         */
-        Pacote *pacotesDisponíveis;
+        Pacote *pacotesDisponiveis;
     
         /*
         * ==============

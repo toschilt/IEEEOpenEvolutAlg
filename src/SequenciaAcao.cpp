@@ -9,12 +9,12 @@ SequenciaAcao::SequenciaAcao(StatusRobo *robo) {
 
 
 void SequenciaAcao::inicializaPacotes(array<Pacote*, QUANTIDADE_PACOTES> pacotesDisponiveis) {
+
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++) {
 
         //! Vi na net que essa atribuição cria uma cópia do vetor, mas pode ser fake news
         array<Pacote*, QUANTIDADE_PACOTES> novaSequencia = pacotesDisponiveis;
 
-        unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
         shuffle(novaSequencia.begin(), novaSequencia.end(), std::default_random_engine(semente));
         sequenciaPacotes[i].sequenciaPacotes = novaSequencia;
     }
@@ -37,6 +37,8 @@ void SequenciaAcao::crossover() {
     //Crossover na sequencia de blocos pra deixar o bagulho quente sei la
     //Maior fitness -> maior chance de estar no próximo
     
+    //fitness * 100
+    //vetor com a porra toda vai ter que ser mt grande puta que pariou
 }
 
 
@@ -49,7 +51,10 @@ void SequenciaAcao::mutacao() {
         if(i == this->indiceMelhorFitness) { continue; }
 
         for(int j = 0; j < QUANTIDADE_PACOTES; j++) {
-            if(coinflip(TAXA_MUTACAO * (1 - this->fitness[j]))) {
+
+            float taxaMutacao = TAXA_MUTACAO_SEQUENCIAPACOTES * (1 - this->fitness[j]);
+
+            if(coinflip(taxaMutacao)) {
                 int indiceTroca = rand() % QUANTIDADE_PACOTES;
                 
                 Pacote *pacote1 = this->sequenciaPacotes.at(i).sequenciaPacotes[indiceTroca];
