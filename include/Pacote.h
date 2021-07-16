@@ -7,8 +7,6 @@
 #include "Grafo.h"
 #include "Pacote.h"
 
-using namespace std;
-
 enum kcores_pacotes 
 {
     COR_INDEF = -1,
@@ -19,10 +17,10 @@ enum kcores_pacotes
     COR_PRETO,
     COR_BRANCO
 };
-
 class Pacote
 {
     private:
+    
 
     public:
         /*
@@ -52,13 +50,13 @@ class Pacote
          * Define as possíveis posições de captura
          * do pacote em questão.
         */
-        array<CoordR2, > posicoesColeta;
+        vector<CoordR2> *posicoesCaptura;
 
         /*
          * Define as possíveis posições de entrega
          * do pacote em questão.
         */
-        CoordR2 *posicoesEntrega;
+        vector<CoordR2> *posicoesEntrega;
 
         /*
         * ==============
@@ -97,25 +95,54 @@ class Pacote
          * Construtor. 
          * As possíveis posições de captura e coleta são calculadas
          * a partir do grafo fornecido.
-         * Cor, número e posicaoAtual são definidas arbitrariamente.
+         * numero é definido como -1.
+         * Cor e posicaoAtual são definidas arbitrariamente.
         */
-        Pacote(int color, int number, Grafo graph, CoordR2 *posicaoAtual);
+        Pacote(Grafo grafoCenario, int cor, CoordR2 *posicaoAtual);
+
 
         /*
         * ==============
         * MÉTODOS SET
         * ==============
         */
-        void setnumero(int number);
-        void setposicaoAtual(Grafo graph, CoordR2 currentPosition);
+       
+        /*
+         * Obtém as posições de captura do pacote em questão
+         * através do grafo do cenário.
+         * Atualiza o vetor posicoesCaptura.
+        */
+        void setPosicoesCaptura(Grafo grafoCenario, int cor, int numero, CoordR2 *posicaoAtual);
+        
+        /*
+         * Obtém as posições de entrega do pacote em questão
+         * através do grafo do cenário.
+         * Atualiza o vetor posicoesEntrega.
+        */
+        void setPosicoesEntrega(Grafo grafoCenraio, int cor, int numero);
+        
+        /*
+         * Define o número do bloco e atualiza as posições de entrega
+         * através do grafo do cenário.
+         * Atualiza o vetor posicoesCaptura e posicoesEntrega.
+        */
+        void setNumero(Grafo grafoCenario, int numero);
 
         /*
-        * =========================
-        * MÉTODOS PARA IMPRESSÃO
-        * =========================
+         * Define a posição atual do bloco e atualiza as posições de entrega
+         * e coleta através do grafo do cenário.
+         * Atualiza o vetor posicoesCaptura e posicoesEntrega.
+         * OBS: É necessário ter definidos o número e cor do pacote!
         */
-        void printposicoesCaptura();
-        void printposicoesEntrega();
+        void setPosicaoAtual(Grafo grafoCenario, CoordR2 *posicaoAtual);
+
+        /*
+        * =======================
+        * MÉTODO PARA IMPRESSÃO
+        * =======================
+        */
+       
+        friend std::ostream & operator<<(std::ostream& output, Pacote const& pacote);
 };
 
 #endif
