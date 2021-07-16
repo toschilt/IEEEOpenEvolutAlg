@@ -9,12 +9,14 @@ SequenciaAcao::SequenciaAcao(StatusRobo *robo) {
 
 
 void SequenciaAcao::inicializaPacotes(array<Pacote*, QUANTIDADE_PACOTES> pacotesDisponiveis) {
+    
+    unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
+
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++) {
 
         //! Vi na net que essa atribuição cria uma cópia do vetor, mas pode ser fake news
         array<Pacote*, QUANTIDADE_PACOTES> novaSequencia = pacotesDisponiveis;
 
-        unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
         shuffle(novaSequencia.begin(), novaSequencia.end(), std::default_random_engine(semente));
         sequenciaPacotes[i].sequenciaPacotes = novaSequencia;
     }
@@ -37,6 +39,8 @@ void SequenciaAcao::crossover() {
     //Crossover na sequencia de blocos pra deixar o bagulho quente sei la
     //Maior fitness -> maior chance de estar no próximo
     
+    //fitness * 100
+    //vetor com a porra toda vai ter que ser mt grande puta que pariou
 }
 
 
