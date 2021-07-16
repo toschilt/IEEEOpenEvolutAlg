@@ -2,6 +2,8 @@
 #define PLANEJAMENTOROBO_H
 
 #include "SequenciaAcao.h"
+#include "StatusRobo.h"
+#include <vector>
 
 /*
 PlanejamentoRobo.h
@@ -20,19 +22,25 @@ class PlanejamentoRobo {
 
     public:
 
-    int indiceMelhorCombinacao;
-    
-    array<SequenciaAcao, TAMANHO_VETOR_SEQUENCIAACAO> sequenciaPacotes;
+        int indiceMelhorCombinacao;
+        
+        float melhorFitness;
+
+        float fitness[TAMANHO_VETOR_SEQUENCIAACAO];
+        
+        vector<SequenciaAcao> sequenciaPacotes;
 
 
-    PlanejamentoRobo(StatusRobo *robo);
+        PlanejamentoRobo(StatusRobo *robo);
 
-    void inicializaPlanejamento(StatusRobo *robo);
+        void inicializaPlanejamento(StatusRobo *robo);
 
-    void calculaFitness();
+        void calculaFitness();
 
-    void evoluiNGeracoes(int n);
-    
+        void evoluiNGeracoes(int n);
+        
+        void genocidio();
+
 };
 
 #endif

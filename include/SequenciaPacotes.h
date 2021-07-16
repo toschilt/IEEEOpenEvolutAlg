@@ -4,7 +4,6 @@
 #include "Pacote.h"
 #include "Constantes.h"
 
-
 typedef float retornoCalcFitness;
 
 class SequenciaPacotes {
@@ -12,10 +11,13 @@ class SequenciaPacotes {
 
     public:
 
-    array<Pacote*, QUANTIDADE_PACOTES> sequenciaPacotes;
+    vector<Pacote*> *sequenciaPacotes;
 
     retornoCalcFitness calculaFitness(int *sequenciaAcoes);
+
+    SequenciaPacotes(vector<Pacote*> *sequencia);
     
 };
+
 
 #endif

@@ -7,7 +7,7 @@ StatusRobo::StatusRobo()
     pacotesDisponiveis = nullptr;
 }
 
-StatusRobo::StatusRobo(int limiteArmazenamento, CoordR2 *posInicial, Pacote *pacotesDisponiveis)
+StatusRobo::StatusRobo(int limiteArmazenamento, CoordR2 *posInicial, vector<Pacote*> *pacotesDisponiveis)
 {
     this->limiteArmazenamento = limiteArmazenamento;
     this->posInicial = posInicial;

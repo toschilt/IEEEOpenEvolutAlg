@@ -6,6 +6,7 @@
 #include "CoordR2.h"
 #include "Grafo.h"
 #include "Pacote.h"
+#include "Constantes.h"
 
 using namespace std;
 

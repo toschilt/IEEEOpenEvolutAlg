@@ -1,10 +1,4 @@
 #include "Pacote.h"
-<<<<<<< HEAD
-=======
-#include "Grafo.h"
-#include "Constantes.h"
-
->>>>>>> 5420cc261791e6795cb61c25fa5fb2ce9646c74f
 
 using namespace std;
 

@@ -13,22 +13,7 @@ using namespace std;
 #include <algorithm>
 #include <array>
 #include <random>
-
-
-/*
-SequenciaAcao.h                                                         (populacão de SequenciaPacotes e indivíduo do PlanejamentoRobo)
-    - int indiceMelhorSequenciaPacotes                                  (índice com o melhor conjunto de pacotes)
-    - char[]                                                            (ações)
-    - SequenciaPacotes[]
-    - CoordR2 posicaoAtual
-    
-    - SequenciaAcao(StatusRobo)                                         (chama inicializaPacotes e atualiza posicaoAtual)
-    - inicializaPacotes(Pacote[] pacotesDisponiveis)                    (inicializa sequências randômicas de pacotes)
-    - calculaFitness()                                                  (já atualiza indiceMelhorSequenciaPacotes)
-    - criaNovaPopulacao()                                               (chama crossover() e mutacao() e atualiza SequenciaPacotes)
-    - crossover()                                                       (age sobre o SequenciaPacotes[])
-    - mutacao()                                                         (age sobre o SequenciaPacotes[])
-*/
+#include <vector>
 
 
 class SequenciaAcao {
@@ -52,7 +37,7 @@ class SequenciaAcao {
     /*
      * Vetor com sequências de pacotes para evoluir
     */
-    array<SequenciaPacotes, TAMANHO_VETOR_SEQUENCIAPACOTES> sequenciaPacotes;
+    vector<SequenciaPacotes*> *sequenciasPacotes;
 
 
     /*
@@ -72,9 +57,9 @@ class SequenciaAcao {
     SequenciaAcao(StatusRobo *robo);
 
     /*
-     * Inicializa sequências aleatóirias de pacotes
+     * Inicializa sequências aleatórias de pacotes
     */
-    void inicializaPacotes(array<Pacote*, QUANTIDADE_PACOTES> pacotesDisponiveis);
+    void inicializaPacotes(vector<Pacote*> *pacotesDisponiveis);
     void calculaFitness();
     void atualizaPopulacao();
     void crossover();

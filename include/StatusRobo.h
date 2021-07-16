@@ -41,7 +41,7 @@ class StatusRobo
          * É definido pelos jurados a cada rodada e obtido
          * através dos algoritmos de Visão Computacional.
         */
-        Pacote *pacotesDisponiveis;
+        vector<Pacote*> *pacotesDisponiveis;
     
         /*
         * ==============
@@ -60,7 +60,7 @@ class StatusRobo
         /*
          * Construtor a partir de parâmetros arbitrários.
         */
-        StatusRobo(int limiteArmazenamento, CoordR2 *posInicial, Pacote *pacotesDisponíveis);
+        StatusRobo(int limiteArmazenamento, CoordR2 *posInicial, vector<Pacote*> *pacotesDisponiveis);
 };
 
 #endif
