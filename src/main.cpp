@@ -4,6 +4,10 @@
 #include "CoordR2.h"
 #include "Grafo.h"
 
+#include "StatusRobo.h"
+#include "PlanejamentoRobo.h"
+
+
 int main() {
 
     /*
@@ -12,10 +16,17 @@ int main() {
      * =========================
     */
 
-    CoordR2 *initialPosition = new CoordR2(1, 1);
-    Grafo *scenarioGraph = new Grafo("../files/plataforma.txt");
-    scenarioGraph->Gera_Grafo();
+    CoordR2 *posicaoInicial = new CoordR2(1, 1);
+    Grafo *cenarioGrafo = new Grafo("../files/plataforma.txt");
+    cenarioGrafo->Gera_Grafo();
 
+    vector<Pacote*> *pacotesDisponiveis;
+    pacotesDisponiveis->push_back(new Pacote());
+
+    StatusRobo *robo = new StatusRobo(ARMAZENAMENTO_ROBO, posicaoInicial, pacotesDisponiveis);
+
+    PlanejamentoRobo *planejamento = new PlanejamentoRobo(robo);
+    planejamento->evoluiNGeracoes(GERACOES);
 
 
     return 0;

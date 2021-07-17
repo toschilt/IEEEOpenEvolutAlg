@@ -15,7 +15,6 @@ using namespace std;
 #include <random>
 #include <vector>
 
-
 class SequenciaAcao {
     private:
 
@@ -25,15 +24,30 @@ class SequenciaAcao {
     */
     bool coinflip(float probabilidadeSucesso);
 
-
     public:
-    
+
+    /*
+    * ============
+    * ATRIBUTOS
+    * ============
+    */
+
     /*
      * Variável que armazena o índice da melhor sequencia de pacotes
      * para a sequência de ações em específico.
     */
     int indiceMelhorFitness;
+
+    /*
+     * Vetor que armazena a sequência de ações específica.
+    */
+    int *sequenciaAcoes;
     
+    /*
+     * Vetor que armazena as sequências de pacotes para evoluir.
+    */
+    vector<SequenciaPacotes> sequenciasPacotes;
+
     /*
      * Função responsável por retornar o melhor valor de fitness de
      * cada sequência de ações.
@@ -41,21 +55,11 @@ class SequenciaAcao {
     retornoCalcFitness melhorFitness;
 
     /*
-     * Vetor que armazena as sequências de pacotes para evoluir.
-    */
-    vector<SequenciaPacotes> sequenciasPacotes;
-
-    /*
      * Vetor com os valores de fitness individuais para cada sequência.
      * É utilizado para definição de pesos no crossover.
     */
     retornoCalcFitness fitness[TAMANHO_VETOR_SEQUENCIAPACOTES];
 
-    /*
-     * Vetor que armazena a sequência de ações específica.
-    */
-    int *sequenciaAcoes;
-    
 
     /*
      * ==============
@@ -69,8 +73,11 @@ class SequenciaAcao {
     */
     SequenciaAcao(StatusRobo* robo);
 
-
-
+    /*
+     * ======================
+     * ALGORITMO GENÉTICO
+     * ======================
+    */
 
     /*
      * Inicializa sequências aleatórias de pacotes a partir

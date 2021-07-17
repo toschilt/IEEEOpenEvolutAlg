@@ -5,6 +5,7 @@ using namespace std;
 
 #include <chrono>
 
+#define GERACOES                        100
 #define QUANTIDADE_PACOTES              32
 
 #define ARMAZENAMENTO_ROBO              3
