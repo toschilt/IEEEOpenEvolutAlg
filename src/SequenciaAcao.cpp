@@ -3,7 +3,7 @@
 
 SequenciaAcao::SequenciaAcao(StatusRobo *robo) 
 {
-    // sequenciasPacotes = new vector<SequenciaPacotes*>;
+    sequenciasPacotes = *(new vector<SequenciaPacotes>);
     this->inicializaPacotes(robo->pacotesDisponiveis);
     this->indiceMelhorFitness = -1;
     this->melhorFitness = -INFINITY;

@@ -3,36 +3,35 @@
 
 PlanejamentoRobo::PlanejamentoRobo(StatusRobo *robo) {
     this->melhorFitness = -INFINITY;
+    
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAACAO; i++) {
-        int acoes[QUANTIDADE_ACOES];
-        int quantidadeDeColetas = 0;
-
-        for(int j = 0; j < QUANTIDADE_ACOES; j++) {
-            
-            if(quantidadeDeColetas > ARMAZENAMENTO_ROBO) {
-                //Armazenamento do robô está cheio
-                acoes[j] = 0;
-            } else {
-                acoes[j] = rand() % 2;
-            }
-
-            if(acoes[j]) { quantidadeDeColetas++; }
-            else         { quantidadeDeColetas--; }
-        }
-
-        this->sequenciasPacotes.at(i).sequenciaAcoes = acoes;
+        this->sequenciasPacotes.at(i) = *(new SequenciaAcao(robo));
+        this->sequenciasPacotes.at(i).sequenciaAcoes = this->geraSequenciaAleatoria();
     }
 }
 
 
-SequenciaAcao PlanejamentoRobo::geraSequenciaAleatoria() {
+int* PlanejamentoRobo::geraSequenciaAleatoria() {
+    int quantidadeDeColetas = 0;
+    int acoes[QUANTIDADE_ACOES];
 
+    for(int j = 0; j < QUANTIDADE_ACOES; j++) {
+        //Armazenamento do robô está cheio
+        if(quantidadeDeColetas > ARMAZENAMENTO_ROBO) { acoes[j] = 0; } 
+        else { acoes[j] = rand() % 2; }
+
+        if(acoes[j]) { quantidadeDeColetas++; }
+        else         { quantidadeDeColetas--; }
+    }
+
+    return acoes;
 }
 
 
 void PlanejamentoRobo::inicializaPlanejamento(StatusRobo *robo) {
     
 }
+
 
 retornoCalcFitness PlanejamentoRobo::calculaFitness() {
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAACAO; i++) {
@@ -46,9 +45,28 @@ retornoCalcFitness PlanejamentoRobo::calculaFitness() {
     }
 }
 
+
 void PlanejamentoRobo::evoluiNGeracoes(int n) {
     for(int i = 0; i < n; i++) {
-        this->calculaFitness();
         
+        this->calculaFitness();
+    
     }
+}
+
+
+void PlanejamentoRobo::atualizaPopulacao() {
+
+}
+
+void PlanejamentoRobo::crossover() {
+
+}
+
+void PlanejamentoRobo::mutacao() {
+
+}
+
+void PlanejamentoRobo::genocidio() {
+    
 }

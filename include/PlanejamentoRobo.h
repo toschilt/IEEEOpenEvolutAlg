@@ -20,7 +20,7 @@ PlanejamentoRobo.h
 class PlanejamentoRobo {
     private:
 
-        SequenciaAcao geraSequenciaAleatoria();
+        int* geraSequenciaAleatoria();
 
     public:
 
