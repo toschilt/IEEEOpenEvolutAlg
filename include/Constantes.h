@@ -7,6 +7,8 @@ using namespace std;
 
 #define QUANTIDADE_PACOTES              32
 
+#define ARMAZENAMENTO_ROBO              3
+
 #define QUANTIDADE_ACOES                20
 #define TAMANHO_VETOR_SEQUENCIAPACOTES  10
 

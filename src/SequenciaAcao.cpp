@@ -22,7 +22,7 @@ void SequenciaAcao::inicializaPacotes(vector<Pacote*> *pacotesDisponiveis)
 }
 
 
-void SequenciaAcao::calculaFitness()
+retornoCalcFitness SequenciaAcao::calculaFitness()
 {
     //Passa por toda a sequência, calcula os fitness individuais, e salva o melhor
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
@@ -34,6 +34,12 @@ void SequenciaAcao::calculaFitness()
             this->indiceMelhorFitness = i;
         }
     }
+}
+
+
+void SequenciaAcao::atualizaPopulacao() {
+    this->crossover();
+    this->mutacao();
 }
 
 

@@ -60,7 +60,9 @@ class SequenciaAcao {
      * Inicializa sequências aleatórias de pacotes
     */
     void inicializaPacotes(vector<Pacote*> *pacotesDisponiveis);
-    void calculaFitness();
+
+    retornoCalcFitness calculaFitness();
+    
     void atualizaPopulacao();
     void crossover();
     void mutacao();

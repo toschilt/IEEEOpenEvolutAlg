@@ -20,6 +20,8 @@ PlanejamentoRobo.h
 class PlanejamentoRobo {
     private:
 
+        SequenciaAcao geraSequenciaAleatoria();
+
     public:
 
         int indiceMelhorCombinacao;
@@ -28,17 +30,21 @@ class PlanejamentoRobo {
 
         float fitness[TAMANHO_VETOR_SEQUENCIAACAO];
         
-        vector<SequenciaAcao> sequenciaPacotes;
+        vector<SequenciaAcao> sequenciasPacotes;
 
 
         PlanejamentoRobo(StatusRobo *robo);
 
         void inicializaPlanejamento(StatusRobo *robo);
 
-        void calculaFitness();
+        retornoCalcFitness calculaFitness();
 
         void evoluiNGeracoes(int n);
         
+
+        void atualizaPopulacao();
+        void crossover();
+        void mutacao();
         void genocidio();
 
 };
