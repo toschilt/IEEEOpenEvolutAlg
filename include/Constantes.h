@@ -31,7 +31,6 @@ enum kcores_pacotes
     COR_BRANCO
 };
 
-
 /* 
  * Definição das constantes que definem a orientação do robô.
  * ORIENTACAO_PRATILEIRA - garra voltada para as pratileiras
@@ -60,7 +59,5 @@ class Constantes {
 Constantes::Constantes() {
     semente = std::chrono::system_clock::now().time_since_epoch().count();
 }
-
-
 
 #endif

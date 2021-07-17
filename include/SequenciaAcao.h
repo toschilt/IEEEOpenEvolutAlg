@@ -19,6 +19,10 @@ using namespace std;
 class SequenciaAcao {
     private:
 
+    /*
+     * Função responsável por retornar um booleano de acordo
+     * com uma certa probabilidade de sucesso.
+    */
     bool coinflip(float probabilidadeSucesso);
 
 
@@ -26,48 +30,84 @@ class SequenciaAcao {
     
     /*
      * Variável que armazena o índice da melhor sequencia de pacotes
+     * para a sequência de ações em específico.
     */
     int indiceMelhorFitness;
     
     /*
-     * Melhor fitness
+     * Função responsável por retornar o melhor valor de fitness de
+     * cada sequência de ações.
     */
     retornoCalcFitness melhorFitness;
 
     /*
-     * Vetor com sequências de pacotes para evoluir
+     * Vetor que armazena as sequências de pacotes para evoluir.
     */
     vector<SequenciaPacotes> sequenciasPacotes;
 
-
     /*
-     * Vetor com os fitness individuais para cada sequência
-     * utilizado para definição de pesos no crossover
+     * Vetor com os valores de fitness individuais para cada sequência.
+     * É utilizado para definição de pesos no crossover.
     */
     retornoCalcFitness fitness[TAMANHO_VETOR_SEQUENCIAPACOTES];
 
     /*
-     * Vetor que armazena a sequência de ações específica
+     * Vetor que armazena a sequência de ações específica.
     */
     int *sequenciaAcoes;
     
-    /*
-     * Construtor da classe
-    */
-    SequenciaAcao(StatusRobo *robo);
 
     /*
-     * Inicializa sequências aleatórias de pacotes
+     * ==============
+     * CONSTRUTORES
+     * ==============
+    */
+
+    /*
+     * Construtor padrão.
+     * O StatusRobo é passado como parâmetro.
+    */
+    SequenciaAcao(StatusRobo* robo);
+
+
+
+
+    /*
+     * Inicializa sequências aleatórias de pacotes a partir
+     * dos pacotes disponíveis no cenário.
     */
     void inicializaPacotes(vector<Pacote*> *pacotesDisponiveis);
 
+    /*
+     * Calcula o fitness da sequência de ações. Calcula o fitness
+     * de cada uma da sequência de pacotes para cada sequência de 
+     * ações.
+    */
     retornoCalcFitness calculaFitness();
     
+    /*
+     * Atualiza os indivíduos das sequências de pacotes para cada
+     * sequência de ações.
+     * Executa as funções crossover() e mutacao().
+    */
     void atualizaPopulacao();
+
+    /*
+     * Realiza o crossover entre as sequências de pacotes, cruzando
+     * informações.
+    */
     void crossover();
+
+    /*
+     * Realiza a mutação nas sequências de pacotes, aumentando a
+     * diversidade do sistema.
+    */
     void mutacao();
 
-    void normalizaFitness(); //Necessária caso o fit do seq pacotes não retorne algo entre 0 e 1
+    /*
+     * Normaliza os valores de fitness entre 0 e 1.
+    */
+    void normalizaFitness();
 
 };
 
