@@ -4,22 +4,20 @@
 SequenciaAcao::SequenciaAcao(StatusRobo *robo) 
 {
     sequenciasPacotes = *(new vector<SequenciaPacotes>);
-    this->inicializaPacotes(robo->pacotesDisponiveis);
-    this->indiceMelhorFitness = -1;
-    this->melhorFitness = -INFINITY;
-}
-
-
-void SequenciaAcao::inicializaPacotes(vector<Pacote*> *pacotesDisponiveis)
-{
+    
+    //Gera sequências de blocos aleatórias
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
-        vector<Pacote*> *novaSequencia = pacotesDisponiveis;
+        vector<Pacote*> *novaSequencia = robo->pacotesDisponiveis;
 
         shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(semente));
         this->sequenciasPacotes.at(i) = novaSequencia;
     }
+
+    this->indiceMelhorFitness = -1;
+    this->melhorFitness = -INFINITY;
 }
+
 
 
 retornoCalcFitness SequenciaAcao::calculaFitness()

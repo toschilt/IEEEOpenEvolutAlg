@@ -24,8 +24,19 @@ class PlanejamentoRobo {
 
     public:
 
+        /*
+        * ============
+        * ATRIBUTOS
+        * ============
+        */
+
+        /*
+         * Indice do vetor que contem o melhor fitness
+        */
         int indiceMelhorCombinacao;
         
+
+
         float melhorFitness;
 
         float fitness[TAMANHO_VETOR_SEQUENCIAACAO];

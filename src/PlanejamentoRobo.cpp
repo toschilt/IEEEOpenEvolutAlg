@@ -16,12 +16,14 @@ int* PlanejamentoRobo::geraSequenciaAleatoria() {
     int acoes[QUANTIDADE_ACOES];
 
     for(int j = 0; j < QUANTIDADE_ACOES; j++) {
+
         //Armazenamento do robô está cheio
         if(quantidadeDeColetas > ARMAZENAMENTO_ROBO) { acoes[j] = 0; } 
         else { acoes[j] = rand() % 2; }
 
         if(acoes[j]) { quantidadeDeColetas++; }
         else         { quantidadeDeColetas--; }
+    
     }
 
     return acoes;
@@ -29,7 +31,7 @@ int* PlanejamentoRobo::geraSequenciaAleatoria() {
 
 
 void PlanejamentoRobo::inicializaPlanejamento(StatusRobo *robo) {
-    
+
 }
 
 
@@ -43,12 +45,15 @@ retornoCalcFitness PlanejamentoRobo::calculaFitness() {
             this->indiceMelhorCombinacao = i;
         }
     }
+
+    return this->melhorFitness;
 }
 
 
 void PlanejamentoRobo::evoluiNGeracoes(int n) {
     for(int i = 0; i < n; i++) {
         
+        this->atualizaPopulacao();
         this->calculaFitness();
     
     }
@@ -56,17 +61,19 @@ void PlanejamentoRobo::evoluiNGeracoes(int n) {
 
 
 void PlanejamentoRobo::atualizaPopulacao() {
+    //Atualiza a sequencia de ações
+    this->mutacao();
 
-}
 
-void PlanejamentoRobo::crossover() {
+    bool condicaoParaGenocidio = false; //Pensar em quando os genocídios precisam ocorrer
 
+    if(condicaoParaGenocidio) { this->genocidio(); }
 }
 
 void PlanejamentoRobo::mutacao() {
-
+    //Necessidade de verificar se a sequencia de pacotes gerada é valida
 }
 
 void PlanejamentoRobo::genocidio() {
-    
+    //A cada xx iterações, mata todos e cria uma nova população com base nos yy melhores
 }
