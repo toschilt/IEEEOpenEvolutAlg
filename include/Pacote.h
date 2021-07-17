@@ -10,8 +10,23 @@
 
 using namespace std;
 
+<<<<<<< Updated upstream
 class Pacote
 {
+=======
+//LUCAS TOSCHI LEMBRA DE CRIAR O ENUM P/ CORES OBRIGADO
+
+enum cores {
+    verde,
+    azul,
+    amarelo,
+    vermelho,
+    preto,  
+    branco
+};
+
+class Pacote {
+>>>>>>> Stashed changes
     private:
     
 
