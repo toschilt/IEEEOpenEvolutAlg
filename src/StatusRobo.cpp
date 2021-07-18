@@ -7,8 +7,9 @@ StatusRobo::StatusRobo()
     pacotesDisponiveis = nullptr;
 }
 
-StatusRobo::StatusRobo(int limiteArmazenamento, CoordR2 *posInicial, vector<Pacote*> *pacotesDisponiveis)
+StatusRobo::StatusRobo(Grafo *grafoCenario, int limiteArmazenamento, CoordR2 *posInicial, vector<Pacote*> *pacotesDisponiveis)
 {
+    this->grafoCenario = grafoCenario;
     this->limiteArmazenamento = limiteArmazenamento;
     this->posInicial = posInicial;
     this->pacotesDisponiveis = pacotesDisponiveis;

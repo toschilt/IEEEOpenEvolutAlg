@@ -4,6 +4,7 @@
 #include "CoordR2.h"
 #include "Pacote.h"
 #include "Constantes.h"
+#include <vector>
 
 class StatusRobo
 {
@@ -42,6 +43,11 @@ class StatusRobo
          * através dos algoritmos de Visão Computacional.
         */
         vector<Pacote*> *pacotesDisponiveis;
+
+        /*
+         * Grafo construído do grafo em questão.
+        */
+        Grafo *grafoCenario;
     
         /*
         * ==============
@@ -60,7 +66,7 @@ class StatusRobo
         /*
          * Construtor a partir de parâmetros arbitrários.
         */
-        StatusRobo(int limiteArmazenamento, CoordR2 *posInicial, vector<Pacote*> *pacotesDisponiveis);
+        StatusRobo(Grafo *grafoCenario, int limiteArmazenamento, CoordR2 *posInicial, vector<Pacote*> *pacotesDisponiveis);
 };
 
 #endif

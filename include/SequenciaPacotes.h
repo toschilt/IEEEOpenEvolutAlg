@@ -2,11 +2,11 @@
 #define SEQUENCIAPACOTES_H
 
 #include "Pacote.h"
-<<<<<<< Updated upstream
 #include "Constantes.h"
-=======
-#include "SequenciaAcao.h"
+#include "CoordR2.h"
+#include "Grafo.h"
 #include <list>
+#include <set>
 
 /*
 SequenciaPacotes.h                                                      (indivíduo)
@@ -24,55 +24,43 @@ enum{
     coleta,
     entrega
 };
->>>>>>> Stashed changes
-
-typedef float retornoCalcFitness;
 
 class SequenciaPacotes {
     private:
 
     float fitness;
-    Grafo grafoCenario; 
+    Grafo *grafoCenario; 
 
     public:
 
-<<<<<<< Updated upstream
     vector<Pacote*> *sequenciaPacotes;
-
-    retornoCalcFitness calculaFitness(int *sequenciaAcoes);
-
-    SequenciaPacotes(vector<Pacote*> *sequencia);
-    
-=======
-    array<Pacote*, QUANTIDADE_PACOTES> sequenciaPacotes;
     int pacoteAtual;
 
     CoordR2 posAtualRobo;
 
     // Construtor da classe
-    SequenciaPacotes::SequenciaPacotes(vector<Pacote*> pacotes, Grafo grafoCenario);
+    SequenciaPacotes(vector<Pacote*> *pacotes, Grafo *grafoCenario);
 
     // Calcula pontuacao referente ao deslocamento do robo até a posicao alvo
-    int SequenciaPacotes::calculaCustoDeslocamento(CoordR2 coordenadaAtual, CoordR2 coordenadaAlvo);
+    int calculaCustoDeslocamento(CoordR2 coordenadaAtual, CoordR2 coordenadaAlvo);
 
     // Calcula pontuacao referente a uma coleta dde um pacote
-    float SequenciaPacotes::calculaPontosColeta(Pacote* pacote, int distancia);
+    float calculaPontosColeta(Pacote* pacote, int distancia);
 
     // Escolhe a melhor posicao disponivele coleta o pacote, retornando a pontuacao referente a coleta
-    CoordR2 SequenciaPacotes::coletaPacote(CoordR2 coordenadaAtual, Pacote* pacote);
+    float coletaPacote(CoordR2 *coordenadaAtual, Pacote* pacote);
 
     // Calcula pontuacao referente a uma entrega de pacote
-    float SequenciaPacotes::calculaPontosEntrega(Pacote* pacote, int distancia);
+    float calculaPontosEntrega(Pacote* pacote, int distancia);
 
     // Escolhe dentre as posições de entrega possíveis a mais vantajosa
-    CoordR2 SequenciaPacotes::encontraMelhorPosicaoEntrega(CoordR2 coordenadaAtual, Pacote* pacote, int* menorDistancia);
+    CoordR2 encontraMelhorPosicaoEntrega(CoordR2 coordenadaAtual, Pacote* pacote, int* menorDistancia);
 
     // Escolhe o pacote mais vantajoso a ser entregue na posicao mais vantajosa e retorna a pontuacao da entrega
-    float SequenciaPacotes::entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pacotesColetados);
+    float entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pacotesColetados);
 
     // Calcula fitness total iterando por todas as acoes do robô e pelos pacotes a serem coletados e entregues
-    float SequenciaPacotes::calculaFitness(int *sequenciaAcoes, CoordR2 posicaoInicialRobo);
->>>>>>> Stashed changes
+    float calculaFitness(int *sequenciaAcoes, CoordR2 *posicaoInicialRobo);
 };
 
 #endif

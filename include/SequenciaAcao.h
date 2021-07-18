@@ -7,6 +7,8 @@ using namespace std;
 #include "StatusRobo.h"
 #include "Pacote.h"
 #include "Constantes.h"
+#include "CoordR2.h"
+#include "Grafo.h"
 
 #include <cmath>
 #include <iostream>
@@ -14,6 +16,7 @@ using namespace std;
 #include <array>
 #include <random>
 #include <vector>
+#include <chrono>
 
 class SequenciaAcao {
     private:
@@ -46,19 +49,29 @@ class SequenciaAcao {
     /*
      * Vetor que armazena as sequências de pacotes para evoluir.
     */
-    vector<SequenciaPacotes> sequenciasPacotes;
+    vector<SequenciaPacotes*> *sequenciasPacotes;
 
     /*
      * Função responsável por retornar o melhor valor de fitness de
      * cada sequência de ações.
     */
-    retornoCalcFitness melhorFitness;
+    float melhorFitness;
 
     /*
      * Vetor com os valores de fitness individuais para cada sequência.
      * É utilizado para definição de pesos no crossover.
     */
-    retornoCalcFitness fitness[TAMANHO_VETOR_SEQUENCIAPACOTES];
+    float fitness[TAMANHO_VETOR_SEQUENCIAPACOTES];
+
+    /*
+     * Posição inicial do robô no cenário
+    */
+    CoordR2 *posInicial;
+
+    /*
+     * Grafo do cenário.
+    */
+    Grafo *grafoCenario;
 
 
     /*
@@ -75,7 +88,7 @@ class SequenciaAcao {
 
     /*
      * ======================
-     * ALGORITMO GENÉTICO
+     * ALGORITMO EVOLUTIVO
      * ======================
     */
 
@@ -90,7 +103,7 @@ class SequenciaAcao {
      * de cada uma da sequência de pacotes para cada sequência de 
      * ações.
     */
-    retornoCalcFitness calculaFitness();
+    float calculaFitness();
     
     /*
      * Atualiza os indivíduos das sequências de pacotes para cada

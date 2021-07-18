@@ -3,23 +3,22 @@
 
 using namespace std;
 
-#include <chrono>
+#define GERACOES                                    100
+#define QUANTIDADE_PACOTES                          32
 
-#define GERACOES                        100
-#define QUANTIDADE_PACOTES              32
+#define ARMAZENAMENTO_ROBO                          3
 
-#define ARMAZENAMENTO_ROBO              3
+#define QUANTIDADE_ACOES                            20
+#define TAMANHO_VETOR_SEQUENCIAPACOTES              10
 
-#define QUANTIDADE_ACOES                20
-#define TAMANHO_VETOR_SEQUENCIAPACOTES  10
+#define TAMANHO_VETOR_SEQUENCIAACAO                 10
 
-#define TAMANHO_VETOR_SEQUENCIAACAO     10
+#define GERACOES_EVOLUTIVO_INTERNO                  50
 
-#define TAXA_MUTACAO_SEQUENCIAPACOTES   10
-#define TAXA_CROSSOVER_SEQUENCIAPACOTES 1
+#define TAXA_MUTACAO_SEQUENCIAPACOTES               5
+#define TAXA_CROSSOVER_SEQUENCIAPACOTES             80
 
-
-unsigned semente;
+#define TAXA_MUTACAO_SEQUENCIACAO                   5
 
 enum kcores_pacotes 
 {
@@ -47,7 +46,7 @@ enum korientacaoRobo {
 };
 
 
-class Constantes {
+/*class Constantes {
 
     private:
     
@@ -59,6 +58,6 @@ class Constantes {
 
 Constantes::Constantes() {
     semente = std::chrono::system_clock::now().time_since_epoch().count();
-}
+}*/
 
 #endif

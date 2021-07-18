@@ -1,20 +1,17 @@
 #include "SequenciaPacotes.h"
 
-<<<<<<< Updated upstream
-
-=======
-SequenciaPacotes::SequenciaPacotes(vector<Pacote*> pacotes, Grafo grafoCenario)
+SequenciaPacotes::SequenciaPacotes(vector<Pacote*> *pacotes, Grafo *grafoCenario)
 {
     this->sequenciaPacotes = pacotes;
     this->pacoteAtual = 0;
     this->fitness = 0;
 
-    this->grafoCenario = grafoCenario
+    this->grafoCenario = grafoCenario;
 }
 
 int SequenciaPacotes::calculaCustoDeslocamento(CoordR2 coordenadaAtual, CoordR2 coordenadaAlvo)
 {
-    vector<CoordR2> deslocamentoTotal = this->grafoCenario.Breadth_First_Search(coordenadaAtual, coordenadaAlvo); 
+    vector<CoordR2> deslocamentoTotal = this->grafoCenario->Breadth_First_Search(coordenadaAtual, coordenadaAlvo); 
 
     return deslocamentoTotal.size();
 }
@@ -39,21 +36,21 @@ float SequenciaPacotes::calculaPontosColeta(Pacote* pacote, int distancia)
     return fitness;
 }
 
-CoordR2 SequenciaPacotes::coletaPacote(CoordR2 *posicaoAtualRobo, Pacote* pacote)
+float SequenciaPacotes::coletaPacote(CoordR2 *posicaoAtualRobo, Pacote* pacote)
 {
-    int menorDistancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesColeta[0]);
+    int menorDistancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesCaptura->at(0));
     int distancia = 0;
 
-    CoordR2 melhorPosicao = pacote->posicoesColeta[0];
+    CoordR2 melhorPosicao = pacote->posicoesCaptura->at(0);
  
-    for(int i = 1; i < pacote->posicoesColeta.size(); i++)
+    for(int i = 1; i < pacote->posicoesCaptura->size(); i++)
     {
-        distancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesEntrega[i]);
+        distancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesCaptura->at(i));
 
         if(distancia < menorDistancia) 
         {
             menorDistancia = distancia;
-            melhorPosicao = pacote->posicoesEntrega[i];
+            melhorPosicao = pacote->posicoesCaptura->at(i);
         }
     }
 
@@ -85,19 +82,19 @@ float SequenciaPacotes::calculaPontosEntrega(Pacote* pacote, int distancia)
 
 CoordR2 SequenciaPacotes::encontraMelhorPosicaoEntrega(CoordR2 coordenadaAtual, Pacote* pacote, int* menorDistancia)
 {
-    (*menorDistancia) = this->calculaCustoDeslocamento(coordenadaAtual, pacote->posicoesEntrega[0]);
+    (*menorDistancia) = this->calculaCustoDeslocamento(coordenadaAtual, pacote->posicoesEntrega->at(0));
     int distancia = 0;
 
-    CoordR2 melhorPosicao = pacote->posicoesEntrega[0];
+    CoordR2 melhorPosicao = pacote->posicoesEntrega->at(0);
  
-    for(int i = 1; i < pacote->posicoesEntrega.size(); i++)
+    for(int i = 1; i < pacote->posicoesEntrega->size(); i++)
     {
-        distancia = this->calculaCustoDeslocamento(coordenadaAtual, pacote->posicoesEntrega[i]);
+        distancia = this->calculaCustoDeslocamento(coordenadaAtual, pacote->posicoesEntrega->at(i));
 
         if(distancia < (*menorDistancia)) 
         {
             (*menorDistancia) = distancia;
-            melhorPosicao = pacote->posicoesEntrega[i];
+            melhorPosicao = pacote->posicoesEntrega->at(i);
         }
     }  
 
@@ -130,7 +127,7 @@ float SequenciaPacotes::entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pa
         {
             melhorDistancia = distanciaAtual;
             melhorPacote = (*iteradorPacotes);
-            melhorPosicaoEntrega = posicoesEntregaAtual;
+            melhorPosicaoEntrega = posicaoEntregaAtual;
         }
         iteradorPacotes++;
     }
@@ -148,28 +145,27 @@ float SequenciaPacotes::entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pa
     return fitness;
 }
 
-float SequenciaPacotes::calculaFitness(int *sequenciaAcoes, CoordR2 posicaoInicialRobo)
+float SequenciaPacotes::calculaFitness(int *sequenciaAcoes, CoordR2 *posicaoInicialRobo)
 {
     float fitness;
 
     set<Pacote*> pacotesColetados;
-    CoordR2 posicaoAtualRobo = posicaoInicialRobo;
+    CoordR2 *posicaoAtualRobo = posicaoInicialRobo;
 
     for(int i = 0; i < QUANTIDADE_ACOES; i++)
     {
         if(sequenciaAcoes[i] == coleta)
         {
-            pacotesColetados.insert(this->sequenciaPacotes[this->pacoteAtual]);
-            fitness +=  this->coletaPacote(&posicaoAtualRobo, this->sequenciaPacotes[this->pacoteAtual]);
+            pacotesColetados.insert(this->sequenciaPacotes->at(this->pacoteAtual));
+            fitness += this->coletaPacote(posicaoAtualRobo, this->sequenciaPacotes->at(this->pacoteAtual));
 
             this->pacoteAtual++;      
         }
         else // ENTREGA
         {
-            fitness += this->entregaPacote(&posicaoAtualRobo, pacotesColetados);
+            fitness += this->entregaPacote(posicaoAtualRobo, pacotesColetados);
         }
     }
 
     return fitness;
 }
->>>>>>> Stashed changes

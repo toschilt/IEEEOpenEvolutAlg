@@ -3,13 +3,14 @@
 
 #include "SequenciaAcao.h"
 #include "StatusRobo.h"
+#include "SequenciaPacotes.h"
 #include <vector>
 
 class PlanejamentoRobo {
     private:
         
         /*
-         * 
+         * Gera sequência aleatória de ações para inicializar a sequenciaAcoes
         */
         int* geraSequenciaAleatoria();
 
@@ -34,14 +35,14 @@ class PlanejamentoRobo {
         float melhorFitness;
 
         /*
-         * Vetor com falores de fitness.
+         * Vetor com falores de fitness das sequências de ações.
         */
         float fitness[TAMANHO_VETOR_SEQUENCIAACAO];
         
         /*
          * Vetor de SequenciaAcao.
         */
-        vector<SequenciaAcao> sequenciasPacotes;
+        vector<SequenciaAcao*> *sequenciasAcao;
 
 
         /*
@@ -72,23 +73,13 @@ class PlanejamentoRobo {
          * Calcula o fitness de todas as sequências de ação,
          * bem como de todas as sequências de pacotes.
         */
-        retornoCalcFitness calculaFitness();
+        float calculaFitness();
 
         /*
-         * Realiza a evolução do sistema por n gerações.
+         * Atualiza todas as sequências de pacotes para
+         * cada sequência de ação.
         */
-        void evoluiNGeracoes(int n);
-        
-        /*
-         * Atualiza todas as sequências de ação.
-        */
-        void atualizaPopulacao();
-
-        /*
-         * Realiza o crossover de todas as sequências de pacote
-         * encapsuladas nas sequências de ações.
-        */
-        void crossover();
+        void atualizaPopulacaoPacotes();
 
         /*
          * Realiza a mutação de todas as sequências de pacote
@@ -102,6 +93,15 @@ class PlanejamentoRobo {
         */
         void genocidio();
 
+        /*
+         * Atualiza todas as sequências de ações.
+        */
+        void atualizaPopulacaoAcoes();
+        
+        /*
+         * Realiza a evolução do sistema por n gerações.
+        */
+        void evoluiNGeracoes(int n);
 };
 
 #endif

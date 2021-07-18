@@ -9,16 +9,15 @@ set(LIBRARIES_SRC
 set(LIBRARIES_HEADERS
     include/CoordR2.h
     include/Grafo.h
-    
 )
 
 set(SOURCES
-    src/main.cpp    
     src/StatusRobo.cpp
     src/Pacote.cpp
     src/SequenciaPacotes.cpp
     src/SequenciaAcao.cpp
     src/PlanejamentoRobo.cpp
+    src/main.cpp
 )
 
 set(HEADERS
@@ -27,7 +26,7 @@ set(HEADERS
     include/SequenciaPacotes.h
     include/SequenciaAcao.h
     include/PlanejamentoRobo.h
-    
+    include/Constantes.h   
 )
 
 include_directories("include/")
