@@ -44,7 +44,8 @@ int main() {
      * =========================
     */
 
-    cout << "[MAIN] Início do programa!" << endl;
+    //cout << "[MAIN] Início do programa!" << endl;
+    srand(SEMENTE);
 
     Grafo *grafoCenario = new Grafo("../files/plataforma.txt");
     grafoCenario->Gera_Grafo();
@@ -53,15 +54,15 @@ int main() {
 
     vector<Pacote*>* pacotesDisponiveis;
     pacotesDisponiveis = setPacotes(grafoCenario);
-    cout << "[MAIN] Setou os pacotes!" << endl;
+    // cout << "[MAIN] Setou os pacotes!" << endl;
 
     StatusRobo *sid = new StatusRobo(grafoCenario, ARMAZENAMENTO_ROBO, posicaoInicial, pacotesDisponiveis);
-    cout << "[MAIN] Criou o StatusRobo!" << endl;
+    //cout << "[MAIN] Criou o StatusRobo!" << endl;
     
     PlanejamentoRobo *planejamento = new PlanejamentoRobo(sid);
-    cout << "[MAIN] Criou o PlanejamentoRobo" << endl;
+    //cout << "[MAIN] Criou o PlanejamentoRobo" << endl;
 
-    cout << "[MAIN] Evoluindo N gerações AGORA!" << endl;
+    //cout << "[MAIN] Evoluindo N gerações AGORA!" << endl;
     planejamento->evoluiNGeracoes(GERACOES);
     cout << "[MAIN] Cabô, vamo pra casa nessa porra!" << endl;
 

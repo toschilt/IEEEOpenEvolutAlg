@@ -44,7 +44,7 @@ class SequenciaAcao {
     /*
      * Vetor que armazena a sequência de ações específica.
     */
-    int *sequenciaAcoes;
+    vector<int> *sequenciaAcoes;
     
     /*
      * Vetor que armazena as sequências de pacotes para evoluir.

@@ -132,7 +132,7 @@ void Pacote::setNumero(Grafo grafoCenario, int numero)
     }
     else
     {
-        cout << "[PACOTE] ERRO - número inválido em setNumero!" << endl;
+        // cout << "[PACOTE] ERRO - número inválido em setNumero!" << endl;
     }
 }
 
@@ -149,12 +149,12 @@ void Pacote::setPosicaoAtual(Grafo grafoCenario, CoordR2 *posicaoAtual)
         }
         else
         {
-            cout << "[PACOTE] ERRO - número e cor não foram antes de setPosicaoAtual" << endl;
+            // cout << "[PACOTE] ERRO - número e cor não foram antes de setPosicaoAtual" << endl;
         }
     }
     else
     {
-        cout << "[PACOTE] ERRO - posicaoAtual inválida em setPosicaoAtual" << endl;
+        // cout << "[PACOTE] ERRO - posicaoAtual inválida em setPosicaoAtual" << endl;
     }
 }
 

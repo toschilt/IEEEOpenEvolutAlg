@@ -40,7 +40,7 @@ void Grafo::Le_Plataforma(const char nome_arquivo[])
 
     else
     {
-        cout << "Não foi possível abrir o arquivo txt!\n";
+        // cout << "Não foi possível abrir o arquivo txt!\n";
     }
     return;
 }
@@ -74,13 +74,13 @@ Grafo::Grafo(const char nome_arquivo[]){
 }
 
 Grafo::Grafo(){
-    cout << "Grafo Inicializado! " << endl;
+    // cout << "Grafo Inicializado! " << endl;
 }
 
 void Grafo::Print_Plataforma_txt(){
     for (int i = 0; i < dim[0]; i++)
     {
-        cout<<plataforma[i]<<endl;
+        // cout<<plataforma[i]<<endl;
     }
     
     return;
@@ -88,15 +88,15 @@ void Grafo::Print_Plataforma_txt(){
 
 void Grafo::Print_Grafo()
 {
-    cout << "Total de vertices: " << grafo.size() << endl;
+    // cout << "Total de vertices: " << grafo.size() << endl;
     for (auto& it: grafo)
     {
-        cout << "(" << it.first << ") : ";
+        // cout << "(" << it.first << ") : ";
         for (int i = 0; i < it.second.size(); i++)
         {
-            cout << it.second[i] << " ";
+            // cout << it.second[i] << " ";
         }
-        cout << endl;
+        // cout << endl;
     }
 }
 
@@ -110,7 +110,7 @@ vector<CoordR2> Grafo::Get_Vizinhos(CoordR2 vertice)
     }
     else
     {
-     cout << "Vertice nao existe!" << endl;   
+     // cout << "Vertice nao existe!" << endl;   
     }
     return list_adj;
 }
@@ -148,12 +148,12 @@ vector<CoordR2> Grafo::Breadth_First_Search(CoordR2 v_ini, CoordR2 v_fin)
     vizinhos_fim = Get_Vizinhos(v_fin);
     if(vizinhos_ini.empty())
     {
-        cout << "Vertice inicial nao existe!" << endl;
+        // cout << "Vertice inicial nao existe!" << endl;
         return vizinhos_ini;
     }
     if(vizinhos_fim.empty())
     {
-        cout << "Vertice final nao existe!" << endl;
+        // cout << "Vertice final nao existe!" << endl;
         return vizinhos_fim;
     }
     //Fila que guardará lista de caminhos com vértices a serem visitados
@@ -173,7 +173,7 @@ vector<CoordR2> Grafo::Breadth_First_Search(CoordR2 v_ini, CoordR2 v_fin)
         fila.pop();
         //Pega o último vértice do caminho (vértice que será analisado)
         CoordR2 vertice = caminho.back();
-        //cout << "Vertice atual: " << vertice << endl;
+        //// cout << "Vertice atual: " << vertice << endl;
         //Checa se tal vértice não é o vértice final (saída do labirinto)
         if(vertice == v_fin)
         {
@@ -196,7 +196,7 @@ vector<CoordR2> Grafo::Breadth_First_Search(CoordR2 v_ini, CoordR2 v_fin)
                 vector<CoordR2> vizinhos = Get_Vizinhos(vertice);
                 for (int i = 0; i < vizinhos.size(); i++)
                 {
-                    //cout << "Vizinhos: " << vizinhos[i] << endl;
+                    //// cout << "Vizinhos: " << vizinhos[i] << endl;
                     //Gera novo caminho tomando o caminho antigo e insirindo o vizinho no final
                     vector<CoordR2> novo_caminho = caminho;
                     novo_caminho.push_back(vizinhos[i]);

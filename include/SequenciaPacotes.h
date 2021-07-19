@@ -60,7 +60,7 @@ class SequenciaPacotes {
     float entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pacotesColetados);
 
     // Calcula fitness total iterando por todas as acoes do robô e pelos pacotes a serem coletados e entregues
-    float calculaFitness(int *sequenciaAcoes, CoordR2 *posicaoInicialRobo);
+    float calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *posicaoInicialRobo);
 };
 
 #endif

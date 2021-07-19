@@ -2,14 +2,16 @@
 
 SequenciaAcao::SequenciaAcao(StatusRobo *robo) 
 {
-    unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
     sequenciasPacotes = new vector<SequenciaPacotes*>;
+    sequenciaAcoes = new vector<int>;
     
     //Gera sequências de blocos aleatórias
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
-        vector<Pacote*> *novaSequencia = robo->pacotesDisponiveis;
-        shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(semente));
+        vector<Pacote*> *novaSequencia = new vector<Pacote*>;
+        *novaSequencia = *(robo->pacotesDisponiveis);
+        //cout << "[SEQUENCIAACAO] Tamanho da novaSequencia: " << novaSequencia->size() << endl;
+        shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(rand()));
 
         SequenciaPacotes *novaSequenciaPacotes = new SequenciaPacotes(novaSequencia, robo->grafoCenario);
         this->sequenciasPacotes->push_back(novaSequenciaPacotes);
@@ -23,13 +25,13 @@ SequenciaAcao::SequenciaAcao(StatusRobo *robo)
 
 float SequenciaAcao::calculaFitness()
 {
-    cout << "[SEQUENCIAACAO] Entrou na função calculaFitness!" << endl;
+    //cout << "[SEQUENCIAACAO] Entrou na função calculaFitness!" << endl;
     //Passa por toda a sequência, calcula os fitness individuais, e salva o melhor
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
-        //TODO PAREI AQUI ------------------------- LUCAS TOSCHI
-        cout << "[SEQUENCIAACAO] " << endl;
+        //cout << "[SEQUENCIAACAO] Antes de calcular o fitness de uma sequência de pacotes!" << endl;
         this->fitness[i] = this->sequenciasPacotes->at(i)->calculaFitness(this->sequenciaAcoes, posInicial);
+        //cout << "Fitness sequencia pacote " << i << ": " << this->fitness[i] << endl;
         if(this->fitness[i] > this->melhorFitness)
         {
             this->melhorFitness = this->fitness[i];
@@ -37,12 +39,13 @@ float SequenciaAcao::calculaFitness()
         }
     }
 
+    cout << "Melhor sequencia de pacotes: " << this->melhorFitness << endl;
     return this->melhorFitness;
 }
 
-
 void SequenciaAcao::atualizaPopulacao()
 {
+    //cout << "Atualiza População Sequencia Pacotes" << endl;
     this->crossover();
     this->mutacao();
 }

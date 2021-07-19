@@ -12,7 +12,7 @@ class PlanejamentoRobo {
         /*
          * Gera sequência aleatória de ações para inicializar a sequenciaAcoes
         */
-        int* geraSequenciaAleatoria();
+        void geraSequenciaAleatoria(vector<int> *sequenciaAcoes);
 
     public:
 

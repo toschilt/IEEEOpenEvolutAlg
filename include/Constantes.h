@@ -4,7 +4,8 @@
 using namespace std;
 
 #define GERACOES                                    100
-#define QUANTIDADE_PACOTES                          32
+#define QUANTIDADE_PACOTES                          10
+//TODO atualizar para que seja automático
 
 #define ARMAZENAMENTO_ROBO                          3
 
@@ -13,12 +14,15 @@ using namespace std;
 
 #define TAMANHO_VETOR_SEQUENCIAACAO                 10
 
-#define GERACOES_EVOLUTIVO_INTERNO                  50
+#define GERACOES_EVOLUTIVO_INTERNO                  10
 
 #define TAXA_MUTACAO_SEQUENCIAPACOTES               5
 #define TAXA_CROSSOVER_SEQUENCIAPACOTES             80
 
 #define TAXA_MUTACAO_SEQUENCIACAO                   5
+
+#define SEMENTE                                     11234190
+//const unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
 
 enum kcores_pacotes 
 {

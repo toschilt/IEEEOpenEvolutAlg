@@ -145,27 +145,42 @@ float SequenciaPacotes::entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pa
     return fitness;
 }
 
-float SequenciaPacotes::calculaFitness(int *sequenciaAcoes, CoordR2 *posicaoInicialRobo)
+float SequenciaPacotes::calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *posicaoInicialRobo)
 {
-    float fitness;
+    //cout << "[SEQUENCIAPACOTES] Entrou na função calculaFitness" << endl;
+    float fitness = 0;
 
+    //cout << "[SEQUENCIAPACOTES] Antes de declarar a pacotesColetados" << endl;
     set<Pacote*> pacotesColetados;
+    //cout << "[SEQUENCIAPACOTES] Depois de declarar a pacotesColetados" << endl;
+
     CoordR2 *posicaoAtualRobo = posicaoInicialRobo;
 
     for(int i = 0; i < QUANTIDADE_ACOES; i++)
     {
-        if(sequenciaAcoes[i] == coleta)
+        //cout << "[SEQUENCIAPACOTES] Iteração " << i << " sobre a quantidade de ações!" << endl;
+        if(sequenciaAcoes->at(i) == coleta)
         {
+            //cout << "[SEQUENCIAPACOTES] (Iteração " << i << "- this->pacoteAtual: " << this->pacoteAtual << ") - É uma coleta!" << endl;
             pacotesColetados.insert(this->sequenciaPacotes->at(this->pacoteAtual));
+            //cout << "[SEQUENCIAPACOTES] (Iteração " << i << ") - Realizou a inserção de um pacote" << endl;
             fitness += this->coletaPacote(posicaoAtualRobo, this->sequenciaPacotes->at(this->pacoteAtual));
 
             this->pacoteAtual++;      
         }
         else // ENTREGA
         {
+            //cout << "[SEQUENCIAPACOTES] (Iteração " << i << ") - É uma entrega!" << endl;
+            //cout << "[SEQUENCIAPACOTES] Antes de entrar na entregaPacote" << endl;
             fitness += this->entregaPacote(posicaoAtualRobo, pacotesColetados);
+            //cout << "[SEQUENCIAPACOTES] Saiu da entregaPacote" << endl;
         }
+
+        // cout << sequenciaAcoes->at(i) << " ";
     }
+    // cout << endl;
+
+    this->pacoteAtual = 0;
 
     return fitness;
 }
