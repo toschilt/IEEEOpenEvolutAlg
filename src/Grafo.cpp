@@ -208,6 +208,8 @@ vector<CoordR2> Grafo::Breadth_First_Search(CoordR2 v_ini, CoordR2 v_fin)
             }
         }
     }
+
+    return *(new vector<CoordR2>);
 }
 
 /*void Grafo::Caminho_Img(vector<CoordR2> caminho)

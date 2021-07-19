@@ -96,8 +96,8 @@ void PlanejamentoRobo::mutacao()
     {
         SequenciaAcao *sequenciaAtual = sequenciasAcao->at(i);
 
-        //for(int pintoGRANDE = 0; pintoGRANDE < QUANTIDADE_ACOES; pintoGRANDE++) {
-            //cout << sequenciaAtual->sequenciaAcoes->at(pintoGRANDE) << " ";
+        //for(int k = 0; k < QUANTIDADE_ACOES; k++) {
+            //cout << sequenciaAtual->sequenciaAcoes->at(k) << " ";
         //}
         //cout << endl;
 
@@ -183,8 +183,8 @@ void PlanejamentoRobo::mutacao()
             }
         }
 
-        //for(int pintoGRANDE = 0; pintoGRANDE < QUANTIDADE_ACOES; pintoGRANDE++) {
-            //cout << sequenciaAtual->sequenciaAcoes->at(pintoGRANDE) << " ";
+        //for(int k = 0; k < QUANTIDADE_ACOES; k++) {
+            //cout << sequenciaAtual->sequenciaAcoes->at(k) << " ";
         //}
         //cout << endl;
     }

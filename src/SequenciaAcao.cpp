@@ -27,6 +27,8 @@ float SequenciaAcao::calculaFitness()
 {
     //cout << "[SEQUENCIAACAO] Entrou na função calculaFitness!" << endl;
     //Passa por toda a sequência, calcula os fitness individuais, e salva o melhor
+    this->melhorFitness = -INFINITY;
+
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
         //cout << "[SEQUENCIAACAO] Antes de calcular o fitness de uma sequência de pacotes!" << endl;
@@ -84,6 +86,8 @@ void SequenciaAcao::crossover()
     }
 
     novaPopulacao->push_back(sequenciasPacotes->at(indiceMelhorFitness));
+    sequenciasPacotes = novaPopulacao;
+    //TODO cuidar de garbage collect depois
 }
 
 

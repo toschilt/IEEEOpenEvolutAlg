@@ -19,10 +19,11 @@ using namespace std;
 #define TAXA_MUTACAO_SEQUENCIAPACOTES               5
 #define TAXA_CROSSOVER_SEQUENCIAPACOTES             80
 
-#define TAXA_MUTACAO_SEQUENCIACAO                   5
+#define TAXA_MUTACAO_SEQUENCIACAO                   2
 
-#define SEMENTE                                     11234190
+#define SEMENTE                                     1298279
 //const unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
+
 
 enum kcores_pacotes 
 {
