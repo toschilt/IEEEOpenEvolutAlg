@@ -1,24 +1,17 @@
 #ifndef SEQUENCIAPACOTES_H
 #define SEQUENCIAPACOTES_H
 
+using namespace std;
+
 #include "Pacote.h"
 #include "Constantes.h"
 #include "CoordR2.h"
 #include "Grafo.h"
+
 #include <list>
 #include <set>
-
-/*
-SequenciaPacotes.h                                                      (indivíduo)
-    - int fitness
-    - Pacote[]
-
-    - SequenciaPacotes(Pacote[] pacotesDisponiveis)
-    - calculaCustoDeslocamento(CoordR2)                                 (calcula o custo para realizar o deslocamento para uma determinada acao)
-    - calculaCustoColeta()                                              (calula o custo para realizar a coleta de um pacote)
-    - calculaCustoEntrega()                                             (calcula o custo para realizar a entrega de um pacote)
-    - calculaFitness(char[])                                            (recebe as ações como argumento)
-*/
+#include <iostream>
+#include <vector>
 
 enum{
     coleta,
@@ -61,6 +54,11 @@ class SequenciaPacotes {
 
     // Calcula fitness total iterando por todas as acoes do robô e pelos pacotes a serem coletados e entregues
     float calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *posicaoInicialRobo);
+
+    /*
+     * Sobrecarga do operador <<.
+    */
+    friend ostream& operator<<(ostream& os, const SequenciaPacotes& pacotes);
 };
 
 #endif

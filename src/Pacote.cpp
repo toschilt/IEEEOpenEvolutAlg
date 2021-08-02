@@ -160,7 +160,6 @@ void Pacote::setPosicaoAtual(Grafo grafoCenario, CoordR2 *posicaoAtual)
 
 std::ostream& operator<<(std::ostream& stringLoad, Pacote const& pacote)
 { 
-    stringLoad << "Pacote {\n";
     stringLoad << "Cor: " << pacote.cor << "\n";
     stringLoad << "Número: " << pacote.numero << "\n";
     stringLoad << "Posição Atual: (" << pacote.posicaoAtual->x << ", " << pacote.posicaoAtual->y << ")\n";

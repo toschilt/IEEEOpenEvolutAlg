@@ -3,27 +3,31 @@
 
 using namespace std;
 
-#define GERACOES                                    100
-#define QUANTIDADE_PACOTES                          10
-//TODO atualizar para que seja automático
-
 #define ARMAZENAMENTO_ROBO                          3
 
+#define QUANTIDADE_PACOTES                          10 //TODO atualizar para que seja automático
 #define QUANTIDADE_ACOES                            20
-#define TAMANHO_VETOR_SEQUENCIAPACOTES              10
 
+#define TAMANHO_VETOR_SEQUENCIAPACOTES              10
 #define TAMANHO_VETOR_SEQUENCIAACAO                 10
 
+#define GERACOES                                    2
 #define GERACOES_EVOLUTIVO_INTERNO                  10
 
-#define TAXA_MUTACAO_SEQUENCIAPACOTES               5
+#define TAXA_MUTACAO_SEQUENCIACAO                   10
+#define TAXA_MUTACAO_ADICIONAL                      0.1
 #define TAXA_CROSSOVER_SEQUENCIAPACOTES             80
+#define TAXA_MUTACAO_SEQUENCIAPACOTES               10
 
-#define TAXA_MUTACAO_SEQUENCIACAO                   2
+#define PENALIDADE_QUADRANTE_DESLOCADO              100
+#define GANHO_COLETA_PACOTE_COLORIDO                20
+#define GANHO_COLETA_PACOTE_PRETO                   100
+#define GANHO_COLETA_PACOTE_BRANCO                  200
+#define GANHO_ENTREGA_PACOTE_COLORIDO               100
+#define GANHO_ENTREGA_PACOTE_PRETO                  500
+#define GANHO_ENTREGA_PACOTE_BRANCO                 1000
 
 #define SEMENTE                                     1298279
-//const unsigned semente = std::chrono::system_clock::now().time_since_epoch().count();
-
 
 enum kcores_pacotes 
 {
@@ -49,20 +53,5 @@ enum korientacaoRobo {
     ORIENTACAO_DIREITA,
     ORIENTACAO_ESQUERDA
 };
-
-
-/*class Constantes {
-
-    private:
-    
-    public:
-    
-
-    Constantes();
-};
-
-Constantes::Constantes() {
-    semente = std::chrono::system_clock::now().time_since_epoch().count();
-}*/
 
 #endif

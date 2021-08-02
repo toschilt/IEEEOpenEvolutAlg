@@ -110,7 +110,7 @@ class SequenciaAcao {
      * sequência de ações.
      * Executa as funções crossover() e mutacao().
     */
-    void atualizaPopulacao();
+    void atualizaPopulacao(int indiceDestravamentoMutacao);
 
     /*
      * Realiza o crossover entre as sequências de pacotes, cruzando
@@ -122,12 +122,12 @@ class SequenciaAcao {
      * Realiza a mutação nas sequências de pacotes, aumentando a
      * diversidade do sistema.
     */
-    void mutacao();
+    void mutacao(int indiceDestravamentoMutacao);
 
     /*
-     * Normaliza os valores de fitness entre 0 e 1.
+     * Sobrecarga do operador <<.
     */
-    void normalizaFitness();
+    friend ostream& operator<<(ostream& os, const SequenciaAcao& acoes);
 
 };
 

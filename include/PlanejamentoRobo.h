@@ -35,6 +35,17 @@ class PlanejamentoRobo {
         float melhorFitness;
 
         /*
+         * O melhor fitness do AG externo anterior.
+        */
+        float melhorFitnessAnterior;
+
+        /*
+         * Índice que aumenta a mutação conforme o fitness
+         * fica preso em determinado valor.
+        */
+        float indiceDestravamentoMutacao;
+
+        /*
          * Vetor com falores de fitness das sequências de ações.
         */
         float fitness[TAMANHO_VETOR_SEQUENCIAACAO];
@@ -56,12 +67,6 @@ class PlanejamentoRobo {
          * Recebe o StatusRobo para inicialização.
         */
         PlanejamentoRobo(StatusRobo *robo);
-
-        /*
-         * Inicia a inicialização das sequências de ação.
-        */
-        void inicializaPlanejamento(StatusRobo *robo);
-
 
         /*
         * ======================
@@ -102,6 +107,11 @@ class PlanejamentoRobo {
          * Realiza a evolução do sistema por n gerações.
         */
         void evoluiNGeracoes(int n);
+
+        /*
+         * Imprime os resultados finais da evolução.
+        */
+        void printResults();
 };
 
 #endif

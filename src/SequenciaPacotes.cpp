@@ -22,40 +22,16 @@ float SequenciaPacotes::calculaPontosColeta(Pacote* pacote, int distancia)
 
     if(pacote->cor < 4)
     {
-        fitness += 20 - (distancia*2);
+        fitness += GANHO_COLETA_PACOTE_COLORIDO - (distancia*PENALIDADE_QUADRANTE_DESLOCADO);
     }
     else if (pacote->cor == 4)
     {
-        fitness += 100 - (distancia*2);
+        fitness += GANHO_COLETA_PACOTE_PRETO - (distancia*PENALIDADE_QUADRANTE_DESLOCADO);
     }
     else
     {
-        fitness += 200 - (distancia*2);
+        fitness += GANHO_COLETA_PACOTE_BRANCO - (distancia*PENALIDADE_QUADRANTE_DESLOCADO);
     }
-
-    return fitness;
-}
-
-float SequenciaPacotes::coletaPacote(CoordR2 *posicaoAtualRobo, Pacote* pacote)
-{
-    int menorDistancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesCaptura->at(0));
-    int distancia = 0;
-
-    CoordR2 melhorPosicao = pacote->posicoesCaptura->at(0);
- 
-    for(int i = 1; i < pacote->posicoesCaptura->size(); i++)
-    {
-        distancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesCaptura->at(i));
-
-        if(distancia < menorDistancia) 
-        {
-            menorDistancia = distancia;
-            melhorPosicao = pacote->posicoesCaptura->at(i);
-        }
-    }
-
-    int fitness = this->calculaPontosColeta(pacote, distancia);
-    (*posicaoAtualRobo) = melhorPosicao;
 
     return fitness;
 }
@@ -66,15 +42,15 @@ float SequenciaPacotes::calculaPontosEntrega(Pacote* pacote, int distancia)
 
     if(pacote->cor < 4)
     {
-        fitness += 100 - (distancia*5);
+        fitness += GANHO_ENTREGA_PACOTE_COLORIDO - (distancia*PENALIDADE_QUADRANTE_DESLOCADO);
     }
     else if (pacote->cor == 4)
     {
-        fitness += 500 - (distancia*5);
+        fitness += GANHO_ENTREGA_PACOTE_PRETO - (distancia*PENALIDADE_QUADRANTE_DESLOCADO);
     }
     else
     {
-        fitness += 1000 - (distancia*5);
+        fitness += GANHO_ENTREGA_PACOTE_BRANCO - (distancia*PENALIDADE_QUADRANTE_DESLOCADO);
     }
 
     return fitness;
@@ -145,42 +121,65 @@ float SequenciaPacotes::entregaPacote(CoordR2 *posicaoAtualRobo, set<Pacote*> pa
     return fitness;
 }
 
+float SequenciaPacotes::coletaPacote(CoordR2 *posicaoAtualRobo, Pacote* pacote)
+{
+    int menorDistancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesCaptura->at(0));
+    int distancia = 0;
+
+    CoordR2 melhorPosicao = pacote->posicoesCaptura->at(0);
+ 
+    for(int i = 1; i < pacote->posicoesCaptura->size(); i++)
+    {
+        distancia = this->calculaCustoDeslocamento((*posicaoAtualRobo), pacote->posicoesCaptura->at(i));
+
+        if(distancia < menorDistancia) 
+        {
+            menorDistancia = distancia;
+            melhorPosicao = pacote->posicoesCaptura->at(i);
+        }
+    }
+
+    int fitness = this->calculaPontosColeta(pacote, distancia);
+    (*posicaoAtualRobo) = melhorPosicao;
+
+    return fitness;
+}
+
 float SequenciaPacotes::calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *posicaoInicialRobo)
 {
-    //cout << "[SEQUENCIAPACOTES] Entrou na função calculaFitness" << endl;
     float fitness = 0;
 
-    //cout << "[SEQUENCIAPACOTES] Antes de declarar a pacotesColetados" << endl;
     set<Pacote*> pacotesColetados;
-    //cout << "[SEQUENCIAPACOTES] Depois de declarar a pacotesColetados" << endl;
 
     CoordR2 *posicaoAtualRobo = posicaoInicialRobo;
 
     for(int i = 0; i < QUANTIDADE_ACOES; i++)
     {
-        //cout << "[SEQUENCIAPACOTES] Iteração " << i << " sobre a quantidade de ações!" << endl;
         if(sequenciaAcoes->at(i) == coleta)
         {
-            //cout << "[SEQUENCIAPACOTES] (Iteração " << i << "- this->pacoteAtual: " << this->pacoteAtual << ") - É uma coleta!" << endl;
             pacotesColetados.insert(this->sequenciaPacotes->at(this->pacoteAtual));
-            //cout << "[SEQUENCIAPACOTES] (Iteração " << i << ") - Realizou a inserção de um pacote" << endl;
             fitness += this->coletaPacote(posicaoAtualRobo, this->sequenciaPacotes->at(this->pacoteAtual));
 
             this->pacoteAtual++;      
         }
         else // ENTREGA
         {
-            //cout << "[SEQUENCIAPACOTES] (Iteração " << i << ") - É uma entrega!" << endl;
-            //cout << "[SEQUENCIAPACOTES] Antes de entrar na entregaPacote" << endl;
             fitness += this->entregaPacote(posicaoAtualRobo, pacotesColetados);
-            //cout << "[SEQUENCIAPACOTES] Saiu da entregaPacote" << endl;
         }
-
-        // cout << sequenciaAcoes->at(i) << " ";
     }
-    // cout << endl;
 
     this->pacoteAtual = 0;
 
     return fitness;
+}
+
+ostream& operator<<(ostream& os, const SequenciaPacotes& pacotes)
+{
+    for(int i = 0; i < QUANTIDADE_PACOTES; i++)
+    {
+        os << *(pacotes.sequenciaPacotes->at(i));
+        os << endl;
+    }
+
+    return os;
 }

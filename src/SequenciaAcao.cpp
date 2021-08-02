@@ -10,7 +10,6 @@ SequenciaAcao::SequenciaAcao(StatusRobo *robo)
     {
         vector<Pacote*> *novaSequencia = new vector<Pacote*>;
         *novaSequencia = *(robo->pacotesDisponiveis);
-        //cout << "[SEQUENCIAACAO] Tamanho da novaSequencia: " << novaSequencia->size() << endl;
         shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(rand()));
 
         SequenciaPacotes *novaSequenciaPacotes = new SequenciaPacotes(novaSequencia, robo->grafoCenario);
@@ -25,15 +24,12 @@ SequenciaAcao::SequenciaAcao(StatusRobo *robo)
 
 float SequenciaAcao::calculaFitness()
 {
-    //cout << "[SEQUENCIAACAO] Entrou na função calculaFitness!" << endl;
     //Passa por toda a sequência, calcula os fitness individuais, e salva o melhor
     this->melhorFitness = -INFINITY;
 
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
-        //cout << "[SEQUENCIAACAO] Antes de calcular o fitness de uma sequência de pacotes!" << endl;
         this->fitness[i] = this->sequenciasPacotes->at(i)->calculaFitness(this->sequenciaAcoes, posInicial);
-        //cout << "Fitness sequencia pacote " << i << ": " << this->fitness[i] << endl;
         if(this->fitness[i] > this->melhorFitness)
         {
             this->melhorFitness = this->fitness[i];
@@ -41,17 +37,19 @@ float SequenciaAcao::calculaFitness()
         }
     }
 
-    cout << "Melhor sequencia de pacotes: " << this->melhorFitness << endl;
     return this->melhorFitness;
 }
 
-void SequenciaAcao::atualizaPopulacao()
+bool SequenciaAcao::coinflip(float probabilidadeSucesso) 
 {
-    //cout << "Atualiza População Sequencia Pacotes" << endl;
-    this->crossover();
-    this->mutacao();
+    int flip = rand() % 100;
+    if(flip > probabilidadeSucesso)
+    { 
+        return false; 
+    }
+    
+    return true;
 }
-
 
 void SequenciaAcao::crossover()
 {
@@ -90,8 +88,7 @@ void SequenciaAcao::crossover()
     //TODO cuidar de garbage collect depois
 }
 
-
-void SequenciaAcao::mutacao()
+void SequenciaAcao::mutacao(int indiceDestravamentoMutacao)
 {
     //Vai até TAMANHO_VETOR_SEQUENCIAPACOTES - 1 pq no crossover garantimos que o melhor de todos
     //está por último!
@@ -99,9 +96,7 @@ void SequenciaAcao::mutacao()
     {
         for(int j = 0; j < QUANTIDADE_PACOTES; j++) 
         {
-            //float taxaMutacaoFinal = TAXA_MUTACAO_SEQUENCIAPACOTES * (1 - this->fitness[j]);
-
-            if(rand() % 100 < TAXA_MUTACAO_SEQUENCIAPACOTES) 
+            if(rand() % 100 < TAXA_MUTACAO_SEQUENCIAPACOTES*indiceDestravamentoMutacao) 
             {
                 int indiceTroca = rand() % QUANTIDADE_PACOTES;
                 
@@ -115,13 +110,21 @@ void SequenciaAcao::mutacao()
     }
 }
 
-bool SequenciaAcao::coinflip(float probabilidadeSucesso) 
+void SequenciaAcao::atualizaPopulacao(int indiceDestravamentoMutacao)
 {
-    int flip = rand() % 100;
-    if(flip > probabilidadeSucesso)
-    { 
-        return false; 
+    this->crossover();
+    this->mutacao(indiceDestravamentoMutacao);
+}
+
+ostream& operator<<(ostream& os, const SequenciaAcao& acoes)
+{
+    for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAACAO; i++)
+    {
+        os << acoes.sequenciaAcoes->at(i) << " ";
+        
     }
+
+    os << endl;
     
-    return true;
+    return os;
 }
