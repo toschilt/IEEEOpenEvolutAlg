@@ -21,11 +21,12 @@ enum{
 class SequenciaPacotes {
     private:
 
-    float fitness;
     Grafo *grafoCenario; 
 
     public:
 
+    float fitness;
+    
     vector<Pacote*> *sequenciaPacotes;
     int pacoteAtual;
 

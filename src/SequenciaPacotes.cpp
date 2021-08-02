@@ -151,7 +151,8 @@ float SequenciaPacotes::calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *po
 
     set<Pacote*> pacotesColetados;
 
-    CoordR2 *posicaoAtualRobo = posicaoInicialRobo;
+    CoordR2 *posicaoAtualRobo = new CoordR2();
+    *posicaoAtualRobo = *posicaoInicialRobo;
 
     for(int i = 0; i < QUANTIDADE_ACOES; i++)
     {
@@ -169,13 +170,14 @@ float SequenciaPacotes::calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *po
     }
 
     this->pacoteAtual = 0;
+    this->fitness = fitness;
 
     return fitness;
 }
 
 ostream& operator<<(ostream& os, const SequenciaPacotes& pacotes)
 {
-    for(int i = 0; i < QUANTIDADE_PACOTES; i++)
+    for(int i = 0; i < QUANTIDADE_ACOES/2; i++)
     {
         os << *(pacotes.sequenciaPacotes->at(i));
         os << endl;

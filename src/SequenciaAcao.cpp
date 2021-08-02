@@ -30,6 +30,7 @@ float SequenciaAcao::calculaFitness()
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++)
     {
         this->fitness[i] = this->sequenciasPacotes->at(i)->calculaFitness(this->sequenciaAcoes, posInicial);
+
         if(this->fitness[i] > this->melhorFitness)
         {
             this->melhorFitness = this->fitness[i];
@@ -53,6 +54,7 @@ bool SequenciaAcao::coinflip(float probabilidadeSucesso)
 
 void SequenciaAcao::crossover()
 {
+    //cout << "Entrei na função crossover!" << endl;
     //ESTAMOS USANDO ELITISMO
     vector<SequenciaPacotes*> *novaPopulacao = new vector<SequenciaPacotes*>;
 
@@ -62,20 +64,48 @@ void SequenciaAcao::crossover()
         //TODO se ficar muito pesado, pensar em como melhorar isso aqui
         if(i == indiceMelhorFitness)
         {
+            //cout << "Salvei melhor de todos" << endl;
             continue;
         }
 
+        SequenciaPacotes *sequenciaPacotesEmQuestao = this->sequenciasPacotes->at(i);
         vector<Pacote*> *novaSequenciaGenes = new vector<Pacote*>;
+        set<Pacote*> pacotesConsiderados;
 
-        for(int j = 0; j < QUANTIDADE_PACOTES; j++)
+        int indiceMelhorTodos = 0;
+        int indiceIndividuo = 0;
+
+        while(pacotesConsiderados.size() < QUANTIDADE_PACOTES &&
+              indiceMelhorTodos < QUANTIDADE_PACOTES && 
+              indiceIndividuo < QUANTIDADE_PACOTES)
         {
-            if(rand() % 100 < TAXA_CROSSOVER_SEQUENCIAPACOTES)
+            if(indiceIndividuo >= QUANTIDADE_PACOTES || rand() % 100 < TAXA_CROSSOVER_SEQUENCIAPACOTES)
             {
-                novaSequenciaGenes->push_back(genesMelhorDeTodos->at(j));
+                //Pegando do melhor de todos!
+                while(indiceMelhorTodos < QUANTIDADE_PACOTES && 
+                      pacotesConsiderados.find(genesMelhorDeTodos->at(indiceMelhorTodos)) != pacotesConsiderados.end())
+                {
+                    indiceMelhorTodos++;
+                } 
+                
+                if(indiceMelhorTodos < QUANTIDADE_PACOTES) {
+                    novaSequenciaGenes->push_back(genesMelhorDeTodos->at(indiceMelhorTodos));
+                    pacotesConsiderados.insert(genesMelhorDeTodos->at(indiceMelhorTodos));
+                }
             }
             else
             {
-                novaSequenciaGenes->push_back(sequenciasPacotes->at(i)->sequenciaPacotes->at(j));
+                //Pegando do indivíduo em questão!
+                while(indiceIndividuo < QUANTIDADE_PACOTES &&
+                      pacotesConsiderados.find(sequenciaPacotesEmQuestao->sequenciaPacotes->at(indiceIndividuo)) != pacotesConsiderados.end())
+                {
+                    indiceIndividuo++;
+                } 
+
+                if(indiceIndividuo < QUANTIDADE_PACOTES) {
+                    novaSequenciaGenes->push_back(sequenciaPacotesEmQuestao->sequenciaPacotes->at(indiceIndividuo));
+                    pacotesConsiderados.insert(sequenciaPacotesEmQuestao->sequenciaPacotes->at(indiceIndividuo));
+                }
             }
         }
 
@@ -84,8 +114,14 @@ void SequenciaAcao::crossover()
     }
 
     novaPopulacao->push_back(sequenciasPacotes->at(indiceMelhorFitness));
-    sequenciasPacotes = novaPopulacao;
-    //TODO cuidar de garbage collect depois
+    this->sequenciasPacotes = novaPopulacao;
+
+    /*for(int i = 0; i < this->sequenciasPacotes->size(); i++)
+    {
+        //cout << *(this->sequenciasPacotes->at(i)) << endl;
+        cout << *(novaPopulacao->at(i)) << endl;
+        cout << "AAAAAAAAAAAAA ODEIO SERVIÇO DE TELEFONIA MÓVEL PEREÇA AGORA MESMO" << endl;
+    }*/
 }
 
 void SequenciaAcao::mutacao(int indiceDestravamentoMutacao)
@@ -100,9 +136,9 @@ void SequenciaAcao::mutacao(int indiceDestravamentoMutacao)
             {
                 int indiceTroca = rand() % QUANTIDADE_PACOTES;
                 
-                Pacote *pacote1 = this->sequenciasPacotes->at(i)->sequenciaPacotes->at(indiceTroca);
-                Pacote *pacote2 = this->sequenciasPacotes->at(i)->sequenciaPacotes->at(j);
-                Pacote *aux = pacote1;
+                Pacote **pacote1 = &(this->sequenciasPacotes->at(i)->sequenciaPacotes->at(indiceTroca));
+                Pacote **pacote2 = &(this->sequenciasPacotes->at(i)->sequenciaPacotes->at(j));
+                Pacote **aux = pacote1;
                 pacote1 = pacote2;
                 pacote2 = aux;
             }
@@ -110,10 +146,47 @@ void SequenciaAcao::mutacao(int indiceDestravamentoMutacao)
     }
 }
 
+bool SequenciaAcao::calculoCondicaoGenocidio() {
+    int counter = 0;
+    for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++) {
+        if(this->sequenciasPacotes->at(i)->fitness == melhorFitness) {
+            counter++;
+        }
+    }
+    return counter > QUANTIDADE_CONDICAO_GENOCIDIO;
+}
+
+bool SequenciaAcao::genocidio() {
+    if(calculoCondicaoGenocidio()) {
+        cout << "Entrei no genocidio" << endl;
+        bool melhorDeTodosSalvo = false;
+
+        for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++) {
+            if(!melhorDeTodosSalvo && this->sequenciasPacotes->at(i)->fitness == melhorFitness) {
+                melhorDeTodosSalvo = true;
+                continue;
+            }
+
+            vector<Pacote*> *novaSequencia = new vector<Pacote*>;
+            *novaSequencia = *(this->sequenciasPacotes->at(i)->sequenciaPacotes);
+            
+            this->sequenciasPacotes->erase(this->sequenciasPacotes->begin() + i);
+            shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(rand()));
+
+            SequenciaPacotes *novaSequenciaPacotes = new SequenciaPacotes(novaSequencia, this->grafoCenario);
+            this->sequenciasPacotes->push_back(novaSequenciaPacotes);
+        }
+        return true;
+    }
+    return false;
+}
+
 void SequenciaAcao::atualizaPopulacao(int indiceDestravamentoMutacao)
 {
-    this->crossover();
-    this->mutacao(indiceDestravamentoMutacao);
+    if(!this->genocidio()) {
+        this->crossover();
+        this->mutacao(indiceDestravamentoMutacao);
+    }
 }
 
 ostream& operator<<(ostream& os, const SequenciaAcao& acoes)

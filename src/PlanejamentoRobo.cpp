@@ -60,14 +60,8 @@ void PlanejamentoRobo::atualizaPopulacaoPacotes()
     }
 }
 
-void PlanejamentoRobo::genocidio()
-{
-    //TODO A cada xx iterações, mata todos e cria uma nova população com base nos yy melhores
-}
-
 void PlanejamentoRobo::mutacao()
 {
-
     for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAACAO; i++)
     {
         if(i == this->indiceMelhorCombinacao)
@@ -160,13 +154,6 @@ void PlanejamentoRobo::mutacao()
 void PlanejamentoRobo::atualizaPopulacaoAcoes()
 {
     this->mutacao();
-    
-    bool condicaoParaGenocidio = false; //TODO Pensar em quando os genocídios precisam ocorrer
-
-    if(condicaoParaGenocidio) 
-    {
-        this->genocidio(); 
-    }
 }
 
 float PlanejamentoRobo::calculaFitness()
@@ -195,7 +182,20 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
 
             this->calculaFitness();
 
-            //Tentando destravar o fitness!
+            
+            for(int k = 0; k < TAMANHO_VETOR_SEQUENCIAACAO; k++)
+            {
+                //cout << "GERAÇÃO INTERNA " << k << endl;
+                for(int l = 0; l < TAMANHO_VETOR_SEQUENCIAPACOTES; l++)
+                {
+                    cout << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->fitness << ", ";
+                }
+                cout << endl;
+            }
+
+            cout << endl;
+            
+            //TODO encapsular mutação variável para SequenciaAcao em função
             if(this->melhorFitnessAnterior == this->melhorFitness)
             {
                 this->indiceDestravamentoMutacao = this->indiceDestravamentoMutacao + TAXA_MUTACAO_ADICIONAL;
@@ -208,7 +208,7 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
             this->atualizaPopulacaoPacotes();
         }
 
-
+        cout << "GERAÇÃO EXTERNA " << i << ": " << this->melhorFitness << endl;
         this->atualizaPopulacaoAcoes();
     }
 
@@ -221,7 +221,7 @@ void PlanejamentoRobo::printResults()
     cout << "Evolução encerrada!" << endl;
     cout << "SEQUÊNCIA DE AÇÕES:" << endl;
 
-    cout << "(0 para coleta e 1 para entrega)" << endl;
+    cout << "(0 para coleta e 1 para entrega)" << endl << endl;
     cout << *(this->sequenciasAcao->at(this->indiceMelhorCombinacao));
 
     SequenciaAcao *sequenciaAcaoEmQuestao = this->sequenciasAcao->at(this->indiceDestravamentoMutacao);

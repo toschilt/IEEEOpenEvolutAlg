@@ -6,18 +6,19 @@ using namespace std;
 #define ARMAZENAMENTO_ROBO                          3
 
 #define QUANTIDADE_PACOTES                          10 //TODO atualizar para que seja automático
-#define QUANTIDADE_ACOES                            20
+#define QUANTIDADE_ACOES                            10
 
 #define TAMANHO_VETOR_SEQUENCIAPACOTES              10
 #define TAMANHO_VETOR_SEQUENCIAACAO                 10
 
-#define GERACOES                                    2
+#define GERACOES                                    50
 #define GERACOES_EVOLUTIVO_INTERNO                  10
 
-#define TAXA_MUTACAO_SEQUENCIACAO                   10
+#define TAXA_MUTACAO_SEQUENCIACAO                   5
 #define TAXA_MUTACAO_ADICIONAL                      0.1
 #define TAXA_CROSSOVER_SEQUENCIAPACOTES             80
-#define TAXA_MUTACAO_SEQUENCIAPACOTES               10
+#define TAXA_MUTACAO_SEQUENCIAPACOTES               15
+#define QUANTIDADE_CONDICAO_GENOCIDIO               7
 
 #define PENALIDADE_QUADRANTE_DESLOCADO              100
 #define GANHO_COLETA_PACOTE_COLORIDO                20

@@ -17,6 +17,7 @@ using namespace std;
 #include <random>
 #include <vector>
 #include <chrono>
+#include <set>
 
 class SequenciaAcao {
     private:
@@ -26,6 +27,12 @@ class SequenciaAcao {
      * com uma certa probabilidade de sucesso.
     */
     bool coinflip(float probabilidadeSucesso);
+
+    /*
+     * Função responsável por verificar se uma sequencia de pacotes
+     * deve sofrer genocídio
+    */
+    bool calculoCondicaoGenocidio();
 
     public:
 
@@ -117,6 +124,11 @@ class SequenciaAcao {
      * informações.
     */
     void crossover();
+
+    /*
+     * Realiza o genocídio da população, caso esta tenha convergido
+    */
+    bool genocidio();
 
     /*
      * Realiza a mutação nas sequências de pacotes, aumentando a

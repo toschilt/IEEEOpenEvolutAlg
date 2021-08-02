@@ -4,6 +4,8 @@
 #include "CoordR2.h"
 #include "Pacote.h"
 #include "Constantes.h"
+#include "Grafo.h"
+
 #include <vector>
 
 class StatusRobo
