@@ -91,7 +91,7 @@ void PlanejamentoRobo::mutacao()
             }
 
             //SANITY CHECK - ajusta antes de SEQUER cogitar em mutar
-            if(armazenamentoRoboTemporario > ARMAZENAMENTO_ROBO || numColetasTemporario >= QUANTIDADE_PACOTES)
+            if(armazenamentoRoboTemporario > ARMAZENAMENTO_ROBO || numColetasTemporario > QUANTIDADE_PACOTES)
             {
                 sequenciaAtual->sequenciaAcoes->at(j) = entrega;
 
@@ -113,7 +113,7 @@ void PlanejamentoRobo::mutacao()
                     case coleta:
                         //Vamos trocar a COLETA por uma ENTREGA!
                         //Só é possível caso não esteja vazio
-                        if(armazenamentoRobo > 0 && !(numColetasTemporario >= QUANTIDADE_PACOTES))
+                        if(armazenamentoRobo > 0)
                         {
                             sequenciaAtual->sequenciaAcoes->at(j) = entrega;
                             armazenamentoRobo--;
@@ -128,7 +128,7 @@ void PlanejamentoRobo::mutacao()
                     case entrega:
                         //Vamos trocar a ENTREGA por uma COLETA!
                         //Só é possível caso não esteja cheio
-                        if(armazenamentoRobo < ARMAZENAMENTO_ROBO)
+                        if(armazenamentoRobo < ARMAZENAMENTO_ROBO && numColetas < QUANTIDADE_PACOTES)
                         {
                             sequenciaAtual->sequenciaAcoes->at(j) = coleta;
                             armazenamentoRobo++;
@@ -148,13 +148,13 @@ void PlanejamentoRobo::mutacao()
                 numColetas = numColetasTemporario;
             }
 
-            if(j == (QUANTIDADE_ACOES - 2) && numColetas != QUANTIDADE_PACOTES)
+            /*if(j == (QUANTIDADE_ACOES - 2) && numColetas != QUANTIDADE_PACOTES)
             {
                 sequenciaAtual->sequenciaAcoes->at(j) = coleta;
 
                 armazenamentoRobo++;
                 numColetas++;
-            }
+            }*/
         }
     }
 }
@@ -239,9 +239,7 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
         xAxisMelhorDeTodos.push_back(n);
     }
 
-    /*ProduzGrafico::dataToPng("MelhorTodos",
-                             this->xAxis,
-                             this->pastFitness);*/
+    //ProduzGrafico::dataToPng("MelhorTodos", this->xAxis, this->pastFitness);
 
     this->printResults();
 }
