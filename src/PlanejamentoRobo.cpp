@@ -195,7 +195,7 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
             {
                 for(int l = 0; l < TAMANHO_VETOR_SEQUENCIAPACOTES; l++)
                 {
-                    //cout << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->fitness << ", ";
+                    cout << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->fitness << ", ";
 
                     //Na última geração de todas,
                     if(i == n - 1 && j == GERACOES_EVOLUTIVO_INTERNO - 1)
@@ -206,10 +206,10 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
                     }
                 }
                 
-                //cout << endl;
+                cout << endl;
             }
 
-            //cout << endl;
+            cout << endl;
             
             //TODO encapsular mutação variável para SequenciaAcao em função
             if(this->melhorFitnessAnterior == this->melhorFitness)
@@ -226,7 +226,7 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
 
         //cout << "GERAÇÃO EXTERNA " << i << ": " << this->melhorFitness << endl;
         this->atualizaPopulacaoAcoes();
-        //cout << "------------------------------------------------" << endl;
+        cout << "------------------------------------------------" << endl;
 
         xAxisMelhorDeTodos.push_back(n);
     }
@@ -247,7 +247,7 @@ void PlanejamentoRobo::printResults()
     cout << "(0 para coleta e 1 para entrega)" << endl << endl;
     cout << *(this->sequenciasAcao->at(this->indiceMelhorCombinacao));
 
-    SequenciaAcao *sequenciaAcaoEmQuestao = this->sequenciasAcao->at(0);
+    SequenciaAcao *sequenciaAcaoEmQuestao = this->sequenciasAcao->at(this->indiceMelhorCombinacao);
     SequenciaPacotes *sequenciaPacotesEmQuestao = sequenciaAcaoEmQuestao->sequenciasPacotes->at(sequenciaAcaoEmQuestao->indiceMelhorFitness);
     cout << *sequenciaPacotesEmQuestao;
 }
