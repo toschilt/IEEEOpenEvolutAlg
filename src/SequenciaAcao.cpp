@@ -196,10 +196,9 @@ void SequenciaAcao::atualizaPopulacao(int indiceDestravamentoMutacao)
 
 ostream& operator<<(ostream& os, const SequenciaAcao& acoes)
 {
-    for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAACAO; i++)
+    for(int i = 0; i < QUANTIDADE_ACOES; i++)
     {
         os << acoes.sequenciaAcoes->at(i) << " ";
-        
     }
 
     os << endl;
