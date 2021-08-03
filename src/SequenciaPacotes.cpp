@@ -192,9 +192,9 @@ float SequenciaPacotes::calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *po
 
 ostream& operator<<(ostream& os, const SequenciaPacotes& pacotes)
 {
-    for(int i = 0; i < QUANTIDADE_ACOES/2; i++)
+    for(int i = 0; i < pacotes.sequenciaPacotes->size(); i++)
     {
-        os << *(pacotes.sequenciaPacotes->at(i));
+        os << " " << *(pacotes.sequenciaPacotes->at(i));
         os << endl;
     }
 
