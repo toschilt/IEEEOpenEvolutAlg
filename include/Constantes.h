@@ -11,7 +11,7 @@ using namespace std;
 #define TAMANHO_VETOR_SEQUENCIAPACOTES              10
 #define TAMANHO_VETOR_SEQUENCIAACAO                 10
 
-#define GERACOES                                    100
+#define GERACOES                                    12
 #define GERACOES_EVOLUTIVO_INTERNO                  10
 
 #define TAXA_MUTACAO_SEQUENCIACAO                   10

@@ -113,7 +113,7 @@ void PlanejamentoRobo::mutacao()
                     case coleta:
                         //Vamos trocar a COLETA por uma ENTREGA!
                         //Só é possível caso não esteja vazio
-                        if(armazenamentoRobo > 0)
+                        if(armazenamentoRobo > 0 && !(numColetasTemporario >= QUANTIDADE_PACOTES))
                         {
                             sequenciaAtual->sequenciaAcoes->at(j) = entrega;
                             armazenamentoRobo--;
@@ -146,6 +146,14 @@ void PlanejamentoRobo::mutacao()
             {
                 armazenamentoRobo = armazenamentoRoboTemporario;
                 numColetas = numColetasTemporario;
+            }
+
+            if(j == (QUANTIDADE_ACOES - 2) && numColetas != QUANTIDADE_PACOTES)
+            {
+                sequenciaAtual->sequenciaAcoes->at(j) = coleta;
+
+                armazenamentoRobo++;
+                numColetas++;
             }
         }
     }
@@ -200,9 +208,9 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
                     //Na última geração de todas,
                     if(i == n - 1 && j == GERACOES_EVOLUTIVO_INTERNO - 1)
                     {
-                        ProduzGrafico::dataToPng("Ação" + to_string(k) + "Pacotes" + to_string(l),
+                        /*ProduzGrafico::dataToPng("Ação" + to_string(k) + "Pacotes" + to_string(l),
                                                  this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis,
-                                                 this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->pastFitness);
+                                                 this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->pastFitness);*/
                     }
                 }
                 
@@ -231,9 +239,9 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
         xAxisMelhorDeTodos.push_back(n);
     }
 
-    ProduzGrafico::dataToPng("MelhorTodos",
+    /*ProduzGrafico::dataToPng("MelhorTodos",
                              this->xAxis,
-                             this->pastFitness);
+                             this->pastFitness);*/
 
     this->printResults();
 }
