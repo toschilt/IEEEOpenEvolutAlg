@@ -4,7 +4,9 @@
 #include "SequenciaAcao.h"
 #include "StatusRobo.h"
 #include "SequenciaPacotes.h"
+#include "ProduzGrafico.h"
 #include <vector>
+#include <string>
 
 class PlanejamentoRobo {
     private:

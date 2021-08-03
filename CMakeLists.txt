@@ -4,11 +4,17 @@ project(GeneticDecision)
 set(LIBRARIES_SRC
     src/CoordR2.cpp
     src/Grafo.cpp
+    src/ProduzGrafico.cpp
+    src/pbPlots.cpp
+    src/supportLib.cpp
 )
 
 set(LIBRARIES_HEADERS
     include/CoordR2.h
     include/Grafo.h
+    include/ProduzGrafico.h
+    include/pbPlots.hpp
+    include/supportLib.hpp
 )
 
 set(SOURCES

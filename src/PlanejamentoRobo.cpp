@@ -182,14 +182,30 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
 
             this->calculaFitness();
 
+            //Vetor para printar o eixo x nos gráficos
             
+            //Nome base do arquivo para produção dos gráficos
+            string nomeBaseArquivo = "grafico";
+
             for(int k = 0; k < TAMANHO_VETOR_SEQUENCIAACAO; k++)
             {
-                //cout << "GERAÇÃO INTERNA " << k << endl;
                 for(int l = 0; l < TAMANHO_VETOR_SEQUENCIAPACOTES; l++)
                 {
                     cout << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->fitness << ", ";
+
+                    //Na última geração de todas,
+                    if(i == n - 1 && j == GERACOES_EVOLUTIVO_INTERNO - 1)
+                    {
+                        /*for(int m = 0; m < this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis.size(); m++)
+                        {
+                            cout << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis.at(m) << " " << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->pastFitness.at(m) << endl;
+                        }*/
+                        ProduzGrafico::dataToPng(nomeBaseArquivo + "Ação" + to_string(k) + "Pacotes" + to_string(l),
+                                                 this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis,
+                                                 this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->pastFitness);
+                    }
                 }
+                
                 cout << endl;
             }
 
@@ -208,8 +224,9 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
             this->atualizaPopulacaoPacotes();
         }
 
-        cout << "GERAÇÃO EXTERNA " << i << ": " << this->melhorFitness << endl;
+        //cout << "GERAÇÃO EXTERNA " << i << ": " << this->melhorFitness << endl;
         this->atualizaPopulacaoAcoes();
+        cout << "------------------------------------------------" << endl;
     }
 
     this->printResults();

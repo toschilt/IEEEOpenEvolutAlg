@@ -109,7 +109,7 @@ void SequenciaAcao::crossover()
             }
         }
 
-        SequenciaPacotes *novoIndividuo = new SequenciaPacotes(novaSequenciaGenes, grafoCenario);
+        SequenciaPacotes *novoIndividuo = new SequenciaPacotes(novaSequenciaGenes, grafoCenario, sequenciaPacotesEmQuestao->xAxis, sequenciaPacotesEmQuestao->pastFitness, sequenciaPacotesEmQuestao->indexForXAxis);
         novaPopulacao->push_back(novoIndividuo);
     }
 
@@ -158,7 +158,7 @@ bool SequenciaAcao::calculoCondicaoGenocidio() {
 
 bool SequenciaAcao::genocidio() {
     if(calculoCondicaoGenocidio()) {
-        cout << "Entrei no genocidio" << endl;
+        //cout << "Entrei no genocidio" << endl;
         bool melhorDeTodosSalvo = false;
 
         for(int i = 0; i < TAMANHO_VETOR_SEQUENCIAPACOTES; i++) {
@@ -169,11 +169,15 @@ bool SequenciaAcao::genocidio() {
 
             vector<Pacote*> *novaSequencia = new vector<Pacote*>;
             *novaSequencia = *(this->sequenciasPacotes->at(i)->sequenciaPacotes);
+
+            vector<double> xAxis = this->sequenciasPacotes->at(i)->xAxis;
+            vector<double> pastFitness = this->sequenciasPacotes->at(i)->pastFitness;
+            int indexForXAxis = this->sequenciasPacotes->at(i)->indexForXAxis;
             
             this->sequenciasPacotes->erase(this->sequenciasPacotes->begin() + i);
             shuffle(novaSequencia->begin(), novaSequencia->end(), std::default_random_engine(rand()));
 
-            SequenciaPacotes *novaSequenciaPacotes = new SequenciaPacotes(novaSequencia, this->grafoCenario);
+            SequenciaPacotes *novaSequenciaPacotes = new SequenciaPacotes(novaSequencia, this->grafoCenario, xAxis, pastFitness, indexForXAxis);
             this->sequenciasPacotes->push_back(novaSequenciaPacotes);
         }
         return true;
@@ -183,7 +187,8 @@ bool SequenciaAcao::genocidio() {
 
 void SequenciaAcao::atualizaPopulacao(int indiceDestravamentoMutacao)
 {
-    if(!this->genocidio()) {
+    if(!this->genocidio()) 
+    {
         this->crossover();
         this->mutacao(indiceDestravamentoMutacao);
     }

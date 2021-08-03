@@ -32,8 +32,14 @@ class SequenciaPacotes {
 
     CoordR2 posAtualRobo;
 
-    // Construtor da classe
+    vector<double> pastFitness;
+    vector<double> xAxis;
+    int indexForXAxis = 0;
+
+    // Construtores da classe
     SequenciaPacotes(vector<Pacote*> *pacotes, Grafo *grafoCenario);
+
+    SequenciaPacotes(vector<Pacote*> *pacotes, Grafo *grafoCenario, vector<double> xAxis, vector<double> pastFitness, int indexForXAxis);
 
     // Calcula pontuacao referente ao deslocamento do robo até a posicao alvo
     int calculaCustoDeslocamento(CoordR2 coordenadaAtual, CoordR2 coordenadaAlvo);

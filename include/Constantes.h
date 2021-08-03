@@ -11,7 +11,7 @@ using namespace std;
 #define TAMANHO_VETOR_SEQUENCIAPACOTES              10
 #define TAMANHO_VETOR_SEQUENCIAACAO                 10
 
-#define GERACOES                                    50
+#define GERACOES                                    10
 #define GERACOES_EVOLUTIVO_INTERNO                  10
 
 #define TAXA_MUTACAO_SEQUENCIACAO                   5
@@ -28,7 +28,7 @@ using namespace std;
 #define GANHO_ENTREGA_PACOTE_PRETO                  500
 #define GANHO_ENTREGA_PACOTE_BRANCO                 1000
 
-#define SEMENTE                                     1298279
+#define SEMENTE                                     11234190
 
 enum kcores_pacotes 
 {

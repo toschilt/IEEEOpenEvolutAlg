@@ -9,6 +9,18 @@ SequenciaPacotes::SequenciaPacotes(vector<Pacote*> *pacotes, Grafo *grafoCenario
     this->grafoCenario = grafoCenario;
 }
 
+SequenciaPacotes::SequenciaPacotes(vector<Pacote*> *pacotes, Grafo *grafoCenario, vector<double> xAxis, vector<double> pastFitness, int indexForXAxis)
+{
+    this->sequenciaPacotes = pacotes;
+    this->pastFitness = pastFitness;
+    this->xAxis = xAxis;
+    this->indexForXAxis = indexForXAxis;
+    this->pacoteAtual = 0;
+    this->fitness = 0;
+
+    this->grafoCenario = grafoCenario;
+}
+
 int SequenciaPacotes::calculaCustoDeslocamento(CoordR2 coordenadaAtual, CoordR2 coordenadaAlvo)
 {
     vector<CoordR2> deslocamentoTotal = this->grafoCenario->Breadth_First_Search(coordenadaAtual, coordenadaAlvo); 
@@ -171,6 +183,9 @@ float SequenciaPacotes::calculaFitness(vector <int> *sequenciaAcoes, CoordR2 *po
 
     this->pacoteAtual = 0;
     this->fitness = fitness;
+    this->pastFitness.push_back(fitness);
+    this->xAxis.push_back(this->indexForXAxis);
+    this->indexForXAxis++;
 
     return fitness;
 }
