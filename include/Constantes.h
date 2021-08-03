@@ -5,7 +5,7 @@ using namespace std;
 
 #define ARMAZENAMENTO_ROBO                          3
 
-#define QUANTIDADE_PACOTES                          10 //TODO atualizar para que seja automático
+#define QUANTIDADE_PACOTES                          10
 #define QUANTIDADE_ACOES                            10
 
 #define TAMANHO_VETOR_SEQUENCIAPACOTES              10

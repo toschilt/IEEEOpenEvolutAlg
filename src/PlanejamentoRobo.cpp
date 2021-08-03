@@ -168,12 +168,18 @@ float PlanejamentoRobo::calculaFitness()
             this->indiceMelhorCombinacao = i;
         }
     }
+    
+    this->pastFitness.push_back(this->melhorFitness);
+    this->xAxis.push_back(this->indexForXAxis);
+    this->indexForXAxis++;
 
     return this->melhorFitness;
 }
 
 void PlanejamentoRobo::evoluiNGeracoes(int n) 
 {
+    vector<double> xAxisMelhorDeTodos;
+
     for(int i = 0; i < n; i++)
     {
         for(int j = 0; j < GERACOES_EVOLUTIVO_INTERNO; j++)
@@ -181,11 +187,9 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
             this->melhorFitnessAnterior = this->melhorFitness;
 
             this->calculaFitness();
-
-            //Vetor para printar o eixo x nos gráficos
             
             //Nome base do arquivo para produção dos gráficos
-            string nomeBaseArquivo = "grafico";
+            
 
             for(int k = 0; k < TAMANHO_VETOR_SEQUENCIAACAO; k++)
             {
@@ -196,11 +200,7 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
                     //Na última geração de todas,
                     if(i == n - 1 && j == GERACOES_EVOLUTIVO_INTERNO - 1)
                     {
-                        /*for(int m = 0; m < this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis.size(); m++)
-                        {
-                            cout << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis.at(m) << " " << this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->pastFitness.at(m) << endl;
-                        }*/
-                        ProduzGrafico::dataToPng(nomeBaseArquivo + "Ação" + to_string(k) + "Pacotes" + to_string(l),
+                        ProduzGrafico::dataToPng("Ação" + to_string(k) + "Pacotes" + to_string(l),
                                                  this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->xAxis,
                                                  this->sequenciasAcao->at(k)->sequenciasPacotes->at(l)->pastFitness);
                     }
@@ -227,7 +227,13 @@ void PlanejamentoRobo::evoluiNGeracoes(int n)
         //cout << "GERAÇÃO EXTERNA " << i << ": " << this->melhorFitness << endl;
         this->atualizaPopulacaoAcoes();
         cout << "------------------------------------------------" << endl;
+
+        xAxisMelhorDeTodos.push_back(n);
     }
+
+    ProduzGrafico::dataToPng("MelhorTodos",
+                             this->xAxis,
+                             this->pastFitness);
 
     this->printResults();
 }

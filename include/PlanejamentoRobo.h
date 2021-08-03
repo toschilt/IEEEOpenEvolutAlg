@@ -48,9 +48,24 @@ class PlanejamentoRobo {
         float indiceDestravamentoMutacao;
 
         /*
-         * Vetor com falores de fitness das sequências de ações.
+         * Vetor com valores de fitness das sequências de ações.
         */
         float fitness[TAMANHO_VETOR_SEQUENCIAACAO];
+
+        /*
+         * Vetor com valores dos fitness antigos.
+        */
+        vector<double> pastFitness;
+
+        /*
+         * Vetor com valores para o eixo X.
+        */
+        vector<double> xAxis;
+
+        /*
+         * Variável para inserir no vetor de valores para o eixo X.
+        */
+        int indexForXAxis = 0;
         
         /*
          * Vetor de SequenciaAcao.

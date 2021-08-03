@@ -15,6 +15,10 @@ class ProduzGrafico {
     
     public:
         static void dataToPng(string nomePNG, vector<double> xs, vector<double> ys);
+
+        static const int xWindowSize = 800;
+
+        static const int yWindowSize = 600;
 };
 
 #endif
